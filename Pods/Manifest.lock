@@ -1,0 +1,26 @@
+PODS:
+  - SDWebImage (5.5.2):
+    - SDWebImage/Core (= 5.5.2)
+  - SDWebImage/Core (5.5.2)
+  - SDWebImageSwiftUI (0.10.2):
+    - SDWebImage (~> 5.3)
+  - SwiftState (6.0.0)
+
+DEPENDENCIES:
+  - SDWebImageSwiftUI
+  - SwiftState (~> 6.0)
+
+SPEC REPOS:
+  trunk:
+    - SDWebImage
+    - SDWebImageSwiftUI
+    - SwiftState
+
+SPEC CHECKSUMS:
+  SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
+  SDWebImageSwiftUI: 72c37ad29b7b79172362015090a10244096e61f0
+  SwiftState: 5696580d3b91656d1c67773ca5c6d5e51610c711
+
+PODFILE CHECKSUM: bdd4f0055253812ba799d103ee74544ac64d1234
+
+COCOAPODS: 1.8.4

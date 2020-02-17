@@ -1,0 +1,138 @@
+[
+    {
+        "id": 1,
+        "name": "River Crocolisk",
+        "description": "A 2/3 minion",
+        "cost": 2,
+        "minion":
+        {
+            "name": "River Crocolisk",
+            "attack": 2,
+            "health": 3
+        }
+    },
+    {
+        "id": 2,
+        "name": "Chillwind Yeti",
+        "description": "A 4/5 minion",
+        "cost": 4,
+        "minion":
+        {
+            "name": "Chillwind Yeti",
+            "attack": 4,
+            "health": 5
+        }
+    },
+    {
+        "id": 3,
+        "name": "Water Elemental",
+        "description": "A 3/6 minion with Freeze",
+        "cost": 4,
+        "minion":
+        {
+            "name": "Water Elemental",
+            "attack": 3,
+            "health": 6
+        }
+    },
+    {
+        "id": 4,
+        "name": "Ragnaros the Firelord",
+        "description": "DIE, INSECT!!",
+        "cost": 8,
+        "minion":
+        {
+            "name": "Ragnaros the Firelord",
+            "attack": 8,
+            "health": 8
+        }
+    },
+    {
+        "id": 5,
+        "name": "Wisp",
+        "description": "A 1/1 minion",
+        "cost": 0,
+        "minion":
+        {
+            "name": "Wisp",
+            "attack": 1,
+            "health": 1
+        }
+    },
+    {
+        "id": 6,
+        "name": "Bloodfen Raptor",
+        "description": "A 3/2 minion",
+        "cost": 2,
+        "minion":
+        {
+            "name": "Bloodfen Raptor",
+            "attack": 3,
+            "health": 2
+        }
+    },
+    {
+        "id": 7,
+        "name": "Voidwalker",
+        "description": "Why do you call?",
+        "cost": 1,
+        "minion":
+        {
+            "name": "Voidwalker",
+            "attack": 1,
+            "health": 3,
+            "statuses": ["taunt"]
+        }
+    },
+    {
+        "id": 8,
+        "name": "Acolyte of Pain",
+        "description": "Whenever this minion takes damage, draw a card",
+        "cost": 3,
+        "minion":
+        {
+            "name": "Acolyte of Pain",
+            "attack": 1,
+            "health": 3
+        }
+    },
+    {
+        "id": 9,
+        "name": "Jungle Panther",
+        "description": "A 4/2 minion with stealth",
+        "cost": 3,
+        "minion":
+        {
+            "name": "Jungle Panther",
+            "attack": 4,
+            "health": 2,
+            "statuses": ["stealth"]
+        }
+    },
+    {
+        "id": 10,
+        "name": "Huffer",
+        "description": "Huffer, I choose you!",
+        "cost": 3,
+        "minion":
+        {
+            "name": "Huffer",
+            "attack": 4,
+            "health": 2,
+            "statuses": ["charge"]
+        }
+    },
+    {
+        "id": 11,
+        "name": "Annoy-o-Tron",
+        "description": "Hello! Hello!",
+        "cost": 2,
+        "minion":
+        {
+            "name": "Annoy-o-Tron",
+            "attack": 1,
+            "health": 2,
+            "statuses": ["taunt", "divineShield"]
+        }
+    }
+]

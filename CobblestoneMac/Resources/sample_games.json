@@ -1,0 +1,30 @@
+[
+    {
+        "startingTurn": 10,
+        "redPlayer":
+        {
+            "hand":
+            [
+                "Huffer"
+            ],
+            "deck": []
+        },
+        "bluePlayer":
+        {
+            "hand": [],
+            "deck": []
+        },
+        "redBoard":
+        [
+            "Bloodfen Raptor",
+            "Jungle Panther",
+            "Wisp"
+        ],
+        "blueBoard":
+        [
+            "Annoy-o-Tron",
+            "Chillwind Yeti",
+            "Voidwalker"
+        ]
+    }
+]

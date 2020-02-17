@@ -1,0 +1,6 @@
+framework module Pods_CobblestoneMac {
+  umbrella header "Pods-CobblestoneMac-umbrella.h"
+
+  export *
+  module * { export * }
+}
