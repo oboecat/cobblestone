@@ -18,18 +18,18 @@ struct SimpleBoardView: View {
 
     func interactiveMinionView(minion: MinionInPlay) -> AnyView {
         switch self.model.state {
-        case .Idle:
+        case .idle:
             return AnyView(
                 Button(action: {
-                    self.model.stateMachine.enter(state: .MinionSelected(minion: minion))
+                    self.model.stateMachine.enter(state: .minionSelected(minion: minion))
                 }) {
                     MinionInPlayView(minion: minion)
                 }
             )
-        case .MinionSelected(let attacker):
+        case .minionSelected(let attacker):
             return AnyView(
                 Button(action: {
-                    self.model.stateMachine.enter(state: .TargetSelected(target: minion, attacker: attacker))
+                    self.model.stateMachine.enter(state: .targetSelected(target: minion, attacker: attacker))
                 }) {
                     MinionInPlayView(minion: minion)
                 }

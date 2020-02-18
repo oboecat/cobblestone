@@ -14,8 +14,10 @@ struct ConfirmButtonView: View {
     var body: some View {
         Button(action: {
             switch self.model.state {
-            case .PositionSelected, .TargetSelected:
-                self.model.stateMachine.enter(state: .Confirm)
+            case .positionSelected(let position, let minionCard):
+                self.model.stateMachine.enter(state: .confirm(action: .playMinion(minionCard: minionCard, position: position)))
+            case .targetSelected(let target, let attacker):
+                self.model.stateMachine.enter(state: .confirm(action: .combat(attacker: attacker, target: target)))
             default:
                 print("complete action first")
             }

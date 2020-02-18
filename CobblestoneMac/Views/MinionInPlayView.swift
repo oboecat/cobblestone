@@ -27,7 +27,7 @@ struct MinionInPlayView: View {
                 .frame(width: 120, height: 144)
             HStack {
                 Ellipse()
-                    .foregroundColor(.yellow)
+                    .foregroundColor(.orange)
                     .frame(width: 20, height: 20)
                     .overlay(Text(
                         "\(self.minion.attack.current)"))

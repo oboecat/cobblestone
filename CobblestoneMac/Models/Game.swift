@@ -55,15 +55,16 @@ class Game: ObservableObject {
     }
     
     func playCard(_ card: Card) {
-        playMinion(card)
+        playMinion(card, position: 0)
     }
     
-    func playMinion(_ card: Card) {
+    func playMinion(_ card: Card, position: Int) {
         if card.cost <= redPlayer.mana, let index = redPlayer.hand.firstIndex(where: { card.id == $0.id }) {
             let minion = MinionInPlay(card.minion)
             redPlayer.mana -= card.cost
             redPlayer.hand.remove(at: index)
-            redBoard.append(minion)
+            
+            redBoard.insert(minion, at: position > redBoard.endIndex ? redBoard.endIndex : position)
         }
     }
     
@@ -76,28 +77,31 @@ class Game: ObservableObject {
         
         if redBoard.contains(where: { $0 === attacker }) {
             lhs = redBoard
-            rhs = blueBoard
         } else if blueBoard.contains(where: { $0 === attacker }) {
             lhs = blueBoard
-            rhs = redBoard
         } else {
             print("Attacking minion is not in play -- wtf?")
             return
         }
         
+        if redBoard.contains(where: { $0 === defender }) {
+            rhs = redBoard
+        } else if blueBoard.contains(where: { $0 === defender }) {
+            rhs = blueBoard
+        } else {
+            print("Defending minion is not in play -- wtf?")
+            return
+        }
+        
         if !attacker.canAttack() {
             print("This minion needs a turn to get ready.")
-        }
-        
-        if lhs.contains(where: { $0 === defender }) {
-            print("Allied minions cannot fight!")
             return
         }
         
-        if !rhs.contains(where: { $0 === defender }) {
-            print("Defending minion is not in play -- eh?")
-            return
-        }
+//        if lhs === rhs {
+//            print("Allied minions cannot fight!")
+//            return
+//        }
         
         if defender.statuses.contains(.stealth) {
             print("That minion is Stealthed.")
@@ -111,6 +115,10 @@ class Game: ObservableObject {
         
         attacker.attacksRemaining -= 1
         
+        if attacker.statuses.contains(.stealth) {
+            attacker.statuses.remove(.stealth)
+        }
+        
         if attacker.statuses.contains(.divineShield) {
             attacker.statuses.remove(.divineShield)
         } else {
@@ -123,12 +131,23 @@ class Game: ObservableObject {
             defender.health.damage(by: attacker.attack.current)
         }
         
-        if attacker.health.status == .dead {
-            lhs.remove(at: lhs.firstIndex(where: { $0 === attacker })!)
-        }
-        
-        if defender.health.status == .dead {
-            rhs.remove(at: lhs.firstIndex(where: { $0 === defender })!)
+        enforceMinionDeath(minion: defender)
+        enforceMinionDeath(minion: attacker)
+    }
+    
+    private func enforceMinionDeath(minion: MinionInPlay) {
+        if minion.health.status == .dead {
+            print("\(minion.name) died")
+            if let index = redBoard.firstIndex(where: { $0 === minion }) {
+                print("Removing \(minion.name) at \(index)")
+                redBoard.remove(at: index)
+                return
+            }
+            
+            if let index = blueBoard.firstIndex(where: { $0 === minion }) {
+                blueBoard.remove(at: index)
+                return
+            }
         }
     }
 }

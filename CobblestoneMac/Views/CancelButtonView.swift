@@ -13,7 +13,7 @@ struct CancelButtonView: View {
     
     var body: some View {
         Button(action: {
-            self.model.stateMachine.enter(state: .Idle)
+            self.model.stateMachine.enter(state: .idle)
         }) {
             Text("Cancel")
         }

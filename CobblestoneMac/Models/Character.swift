@@ -43,9 +43,10 @@ struct Health {
     }
     
     var current: Int {
-        didSet {
-            if current <= 0 {
+        willSet(newValue) {
+            if newValue <= 0 {
                 status = .dead
+                print("bleh! dead")
             } else {
                 status = .alive
             }

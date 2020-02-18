@@ -20,9 +20,9 @@ struct HandView: View {
     
     func interactiveCardView(card: Card) -> AnyView {
         switch self.model.state {
-        case .Idle:
+        case .idle:
             return AnyView(Button(action: {
-                self.model.stateMachine.enter(state: .CardSelected(card: card))
+                self.model.stateMachine.enter(state: .cardSelected(card: card))
             }) {
                 CardInHandView(card: card)
             })

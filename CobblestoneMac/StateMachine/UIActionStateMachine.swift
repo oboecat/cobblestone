@@ -92,7 +92,7 @@ class PositionSelectedState: GKState {
     
     override func willExit(to nextState: GKState) {
         if let confirmState = nextState as? ConfirmState {
-            confirmState.action = UIActionState.PositionSelected(position: position!, minionCard: minionCard!)
+            confirmState.action = PlayerAction.playMinion(minionCard: minionCard!, position: position!)
         }
         minionCard = nil
         position = nil
@@ -117,7 +117,7 @@ class TargetSelectedState: GKState {
     
     override func willExit(to nextState: GKState) {
         if let confirmState = nextState as? ConfirmState {
-            confirmState.action = UIActionState.TargetSelected(target: target!, attacker: source!)
+            confirmState.action = PlayerAction.combat(attacker: source!, target: target!)
         }
         source = nil
         target = nil
@@ -125,7 +125,7 @@ class TargetSelectedState: GKState {
 }
 
 class ConfirmState: GKState {
-    var action: UIActionState?
+    var action: PlayerAction?
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         if stateClass is IdleState.Type {
@@ -140,7 +140,7 @@ class ConfirmState: GKState {
     }
     
     override func willExit(to nextState: GKState) {
-        // code
+        action = nil
     }
 }
 
@@ -171,38 +171,38 @@ class UIActionStateMachine {
     func enter(state: UIActionState) {
         switch state {
             
-        case .Idle:
+        case .idle:
             stateMachine.enter(IdleState.self)
-            self.uiDelegate.stateDidChange(state: .Idle)
+            self.uiDelegate.stateDidChange(state: .idle)
             
-        case .CardSelected(let card):
+        case .cardSelected(let card):
             guard let nextState = validatedNextState(CardSelectedState.self) else { return }
             nextState.card = card
             stateMachine.enter(CardSelectedState.self)
-            self.uiDelegate.stateDidChange(state: .CardSelected(card: card))
+            self.uiDelegate.stateDidChange(state: .cardSelected(card: card))
             
-        case .MinionSelected(let minion):
+        case .minionSelected(let minion):
             guard let nextState = validatedNextState(MinionSelectedState.self) else { return }
             nextState.minion = minion
             stateMachine.enter(MinionSelectedState.self)
-            self.uiDelegate.stateDidChange(state: .MinionSelected(minion: minion))
+            self.uiDelegate.stateDidChange(state: .minionSelected(minion: minion))
             
-        case .PositionSelected(let position, let minionCard):
+        case .positionSelected(let position, let minionCard):
             guard let nextState = validatedNextState(PositionSelectedState.self) else { return }
             nextState.position = position
             stateMachine.enter(PositionSelectedState.self)
-            self.uiDelegate.stateDidChange(state: .PositionSelected(position: position, minionCard: minionCard))
+            self.uiDelegate.stateDidChange(state: .positionSelected(position: position, minionCard: minionCard))
             
-        case .TargetSelected(let target, let attacker):
+        case .targetSelected(let target, let attacker):
             guard let nextState = validatedNextState(TargetSelectedState.self) else { return }
             nextState.target = target
             stateMachine.enter(TargetSelectedState.self)
-            self.uiDelegate.stateDidChange(state: .TargetSelected(target: target, attacker: attacker))
+            self.uiDelegate.stateDidChange(state: .targetSelected(target: target, attacker: attacker))
             
-        case .Confirm:
-            if stateMachine.enter(ConfirmState.self) {
-                self.uiDelegate.stateDidChange(state: .Confirm)
-            }
+        case .confirm:
+            guard let nextState = validatedNextState(ConfirmState.self) else { return }
+            stateMachine.enter(ConfirmState.self)
+            self.uiDelegate.stateDidChange(state: .confirm(action: nextState.action!))
         }
     }
 }

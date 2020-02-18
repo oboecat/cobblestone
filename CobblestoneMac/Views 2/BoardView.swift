@@ -63,6 +63,5 @@ struct BoardView_Previews: PreviewProvider {
         BoardView()
 //            .environmentObject(DragAndDrop())
             .environmentObject(Game.sample())
-            .environmentObject(ViewModel())
     }
 }

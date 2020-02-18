@@ -34,7 +34,6 @@
 		4B79CDBC23EA1C090092BC33 /* SimpleBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79CDBB23EA1C090092BC33 /* SimpleBoardView.swift */; };
 		4B79CDBE23ECAF630092BC33 /* UIActionStateMachineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79CDBD23ECAF630092BC33 /* UIActionStateMachineDelegate.swift */; };
 		4B8C0CD923E11AF5000D8B40 /* UIActionStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8C0CD823E11AF5000D8B40 /* UIActionStateMachine.swift */; };
-		4B8C0CE423E1272A000D8B40 /* EndTurnState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8C0CE323E1272A000D8B40 /* EndTurnState.swift */; };
 		4B99F55E23F4C3E600F619D3 /* ConfirmButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99F55D23F4C3E600F619D3 /* ConfirmButtonView.swift */; };
 		4B99F56023F4C50C00F619D3 /* CancelButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99F55F23F4C50C00F619D3 /* CancelButtonView.swift */; };
 		4BA9CB3423DFC794000DC05A /* CardParameterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9CB3223DFC793000DC05A /* CardParameterView.swift */; };
@@ -81,7 +80,6 @@
 		4B79CDBB23EA1C090092BC33 /* SimpleBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleBoardView.swift; sourceTree = "<group>"; };
 		4B79CDBD23ECAF630092BC33 /* UIActionStateMachineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActionStateMachineDelegate.swift; sourceTree = "<group>"; };
 		4B8C0CD823E11AF5000D8B40 /* UIActionStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActionStateMachine.swift; sourceTree = "<group>"; };
-		4B8C0CE323E1272A000D8B40 /* EndTurnState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndTurnState.swift; sourceTree = "<group>"; };
 		4B99F55D23F4C3E600F619D3 /* ConfirmButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButtonView.swift; sourceTree = "<group>"; };
 		4B99F55F23F4C50C00F619D3 /* CancelButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButtonView.swift; sourceTree = "<group>"; };
 		4BA9CB3223DFC793000DC05A /* CardParameterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardParameterView.swift; path = "CobblestoneMac/Views 2/CardParameterView.swift"; sourceTree = SOURCE_ROOT; };
@@ -211,7 +209,6 @@
 			children = (
 				4B8C0CD823E11AF5000D8B40 /* UIActionStateMachine.swift */,
 				4B79CDBD23ECAF630092BC33 /* UIActionStateMachineDelegate.swift */,
-				4B8C0CE323E1272A000D8B40 /* EndTurnState.swift */,
 			);
 			path = StateMachine;
 			sourceTree = "<group>";
@@ -390,7 +387,6 @@
 				4B79CDBE23ECAF630092BC33 /* UIActionStateMachineDelegate.swift in Sources */,
 				266095F22374CA3B00740F52 /* AppDelegate.swift in Sources */,
 				4BA9CB3523DFC794000DC05A /* MinionPortraitView.swift in Sources */,
-				4B8C0CE423E1272A000D8B40 /* EndTurnState.swift in Sources */,
 				2642FB9423A423E4007C7D70 /* Character.swift in Sources */,
 				268E79282387344600A10CBF /* DropZoneViewModifier.swift in Sources */,
 			);
