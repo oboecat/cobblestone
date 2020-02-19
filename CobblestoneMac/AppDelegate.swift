@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         print("hello")
         // Create the SwiftUI view that provides the window contents.
-        let game = Game.sample()
+        let game = Game.sharedSample
         let viewModel = ViewModel(game: game)
         let contentView = ContentView()
 //            .environmentObject(DragAndDrop())

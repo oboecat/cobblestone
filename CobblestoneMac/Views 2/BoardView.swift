@@ -62,6 +62,7 @@ struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
         BoardView()
 //            .environmentObject(DragAndDrop())
-            .environmentObject(Game.sample())
+            .environmentObject(Game.sharedSample)
+            .environmentObject(ViewModel(game: Game.sharedSample))
     }
 }

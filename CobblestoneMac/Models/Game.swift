@@ -27,13 +27,20 @@ class Game: ObservableObject {
         self.blueBoard = blueBoard
     }
     
-    static func sample() -> Game {
-        return Game(startingTurn: 1,
-                    redPlayer: Player(hand: [Card](minionCollection[3...5]), mana: 10),
-                    redBoard: minionCollection[6...8].map { MinionInPlay($0.minion, mustRest: false) },
-                    blueBoard: minionCollection[9...10].map { MinionInPlay($0.minion, mustRest: false) }
-        )
-    }
+    static let sharedSample = Game(
+        startingTurn: 1,
+        redPlayer: Player(hand: [Card](minionCollection[3...5]), mana: 10),
+        redBoard: minionCollection[6...8].map { MinionInPlay($0.minion, mustRest: false) },
+        blueBoard: minionCollection[9...10].map { MinionInPlay($0.minion, mustRest: false) }
+    )
+    
+//    static func sample() -> Game {
+//        return Game(startingTurn: 1,
+//                    redPlayer: Player(hand: [Card](minionCollection[3...5]), mana: 10),
+//                    redBoard: minionCollection[6...8].map { MinionInPlay($0.minion, mustRest: false) },
+//                    blueBoard: minionCollection[9...10].map { MinionInPlay($0.minion, mustRest: false) }
+//        )
+//    }
     
     func nextTurn() {
         turn += 1
@@ -139,7 +146,6 @@ class Game: ObservableObject {
         if minion.health.status == .dead {
             print("\(minion.name) died")
             if let index = redBoard.firstIndex(where: { $0 === minion }) {
-                print("Removing \(minion.name) at \(index)")
                 redBoard.remove(at: index)
                 return
             }
