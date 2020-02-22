@@ -187,11 +187,11 @@ class UIActionStateMachine {
             stateMachine.enter(MinionSelectedState.self)
             self.uiDelegate.stateDidChange(state: .minionSelected(minion: minion))
             
-        case .positionSelected(let position, let minionCard):
+        case .positionSelected(let position, _):
             guard let nextState = validatedNextState(PositionSelectedState.self) else { return }
             nextState.position = position
             stateMachine.enter(PositionSelectedState.self)
-            self.uiDelegate.stateDidChange(state: .positionSelected(position: position, minionCard: minionCard))
+            self.uiDelegate.stateDidChange(state: .positionSelected(position: position, minionCard: nextState.minionCard!))
             
         case .targetSelected(let target, let attacker):
             guard let nextState = validatedNextState(TargetSelectedState.self) else { return }

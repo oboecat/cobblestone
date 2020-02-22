@@ -18,23 +18,27 @@ struct HandView: View {
         min(-30, CGFloat((handWidth - 160 * n) / (n - 1)))
     }
     
-    func interactiveCardView(card: Card) -> AnyView {
-        switch self.model.state {
-        case .idle:
-            return AnyView(Button(action: {
-                self.model.stateMachine.enter(state: .cardSelected(card: card))
-            }) {
-                CardInHandView(card: card)
-            })
-        default:
-            return AnyView(CardInHandView(card: card))
-        }
-    }
-    
+//    func interactiveCardView(card: Card) -> AnyView {
+//        switch self.model.state {
+//        case .idle:
+//            return AnyView(Button(action: {
+//                self.model.enter(state: .cardSelected(card: card))
+//            }) {
+//                CardInHandView(card: card)
+//            })
+//        default:
+//            return AnyView(CardInHandView(card: card))
+//        }
+//    }
+
     var body: some View {
         HStack {
             ForEach(self.hand) { (card: Card) in
-                self.interactiveCardView(card: card)
+                Button(action: {
+                    self.model.selectCardFromHand(card: card)
+                }) {
+                    CardInHandView(card: card)
+                }
             }
         }
     }

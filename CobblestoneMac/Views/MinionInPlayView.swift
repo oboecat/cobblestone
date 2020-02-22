@@ -18,7 +18,7 @@ import Foundation
 import SwiftUI
 
 struct MinionInPlayView: View {
-    let minion: MinionInPlay
+    @ObservedObject var minion: MinionInPlay
     
     var body: some View {
         ZStack (alignment: .bottom) {
@@ -43,8 +43,8 @@ struct MinionInPlayView: View {
     }
 }
 
-struct MinionInPlayView_Previews: PreviewProvider {
-    static var previews: some View {
-        MinionInPlayView(minion: MinionInPlay.default)
-    }
-}
+//struct MinionInPlayView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MinionInPlayView(minion: MinionInPlay.default)
+//    }
+//}

@@ -14,6 +14,19 @@ enum PlayerAction {
     case combat(attacker: MinionInPlay, target: MinionInPlay)
     case endTurn
     case concede
+    
+    func description() -> String {
+        switch self {
+        case .combat(let attacker, let target):
+            return "\(attacker.name) attacking \(target.name)"
+        case .playMinion(let minionCard, let position):
+            return "Playing \(minionCard.name) to board slot \(position)"
+        case .endTurn:
+            return "Ending turn"
+        case .concede:
+            return "Conceding"
+        }
+    }
 }
 
 enum UIActionState {
@@ -58,14 +71,57 @@ protocol UIActionStateMachineDelegate: AnyObject {
 }
 
 class ViewModel: ObservableObject, UIActionStateMachineDelegate {
-    var game: Game
-    var stateMachine: UIActionStateMachine
     @Published var state: UIActionState = .idle
+    private var stateMachine: UIActionStateMachine
+    private var game: Game
     
     init(game: Game) {
         self.game = game
         self.stateMachine = UIActionStateMachine()
         self.stateMachine.uiDelegate = self
+    }
+    
+//    func enter(state: UIActionState) {
+//        stateMachine.enter(state: state)
+//    }
+    
+    func selectCardFromHand(card: Card) {
+        stateMachine.enter(state: .cardSelected(card: card))
+    }
+    
+    func selectMinionInBattlefield(minion: MinionInPlay) {
+        switch state {
+        case .idle:
+            stateMachine.enter(state: .minionSelected(minion: minion))
+        case .minionSelected(let attacker):
+            stateMachine.enter(state: .targetSelected(target: minion, attacker: attacker))
+        default:
+            return
+        }
+    }
+    
+    func selectBoardPosition(position: Int) {
+        switch state {
+        case .cardSelected(let minionCard):
+            stateMachine.enter(state: .positionSelected(position: position, minionCard: minionCard))
+        default:
+            return
+        }
+    }
+    
+    func confirmPlayerAction() {
+        switch state {
+        case .targetSelected(let target, let attacker):
+            stateMachine.enter(state: .confirm(action: .combat(attacker: attacker, target: target)))
+        case .positionSelected(let position, let minionCard):
+            stateMachine.enter(state: .confirm(action: .playMinion(minionCard: minionCard, position: position)))
+        default:
+            print("complete action first")
+        }
+    }
+    
+    func cancelPlayerAction() {
+        stateMachine.enter(state: .idle)
     }
     
     func stateDidChange(state: UIActionState) {
@@ -82,6 +138,7 @@ class ViewModel: ObservableObject, UIActionStateMachineDelegate {
     }
     
     private func playerAction(action: PlayerAction) {
+        print(action.description())
         switch action {
         case .combat(let attacker, let target):
             game.combat(attacker, attacking: target)

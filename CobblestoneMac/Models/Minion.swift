@@ -33,34 +33,36 @@ class Minion: Codable {
     static let `default` = Minion(name: "Test", attack: 4, health: 8, statuses: [.taunt, .divineShield])
 }
 
-class MinionInPlay: DeathDelegate {
-    var name: String
-    var attack: Attack
-    var health: Health
-    var statuses: Set<MinionStatus>
-    var attacksRemaining: Int
+class MinionInPlay: DeathDelegate, ObservableObject {
+    @Published var name: String
+    @Published var attack: Attack
+    @Published var health: Health
+    @Published var statuses: Set<MinionStatus>
+    @Published var attacksRemaining: Int
     
-    init(name: String, attack: Int, health: Int, statuses: Set<MinionStatus>?, mustRest: Bool = true) {
+    init(name: String, attack: Int, health: Int, statuses: Set<MinionStatus>, mustRest: Bool = true) {
         self.name = name
         self.attack = Attack(attack)
         self.health = Health(health)
-        
-        if let innateStatuses = statuses {
-            self.statuses = innateStatuses
-        } else {
-            self.statuses = []
-        }
-        
-        self.attacksRemaining = self.statuses.contains(.charge) || mustRest == false ? 1 : 0
+        self.statuses = statuses
+        self.attacksRemaining = statuses.contains(.charge) || mustRest == false ? 1 : 0
         
         self.health.delegate = self
+    }
+    
+    convenience init(name: String, attack: Int, health: Int, mustRest: Bool = true) {
+        self.init(name: name,
+                  attack: attack,
+                  health: health,
+                  statuses: [],
+                  mustRest: mustRest)
     }
     
     convenience init(_ minion: Minion, mustRest: Bool = true) {
         self.init(name: minion.name,
                   attack: minion.attack,
                   health: minion.health,
-                  statuses: minion.statuses,
+                  statuses: minion.statuses ?? [],
                   mustRest: mustRest)
     }
     

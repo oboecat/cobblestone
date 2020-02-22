@@ -10,40 +10,43 @@ import SwiftUI
 import GameKit
 
 struct SimpleBoardView: View {
-    @EnvironmentObject var game: Game
+    @Binding var board: [MinionInPlay]
     @EnvironmentObject var model: ViewModel
     let maxWidth = 840.0
     let minionWidth = 120.0
     let spacing = 0.0
 
-    func interactiveMinionView(minion: MinionInPlay) -> AnyView {
-        switch self.model.state {
-        case .idle:
-            return AnyView(
-                Button(action: {
-                    self.model.stateMachine.enter(state: .minionSelected(minion: minion))
-                }) {
-                    MinionInPlayView(minion: minion)
-                }
-            )
-        case .minionSelected(let attacker):
-            return AnyView(
-                Button(action: {
-                    self.model.stateMachine.enter(state: .targetSelected(target: minion, attacker: attacker))
-                }) {
-                    MinionInPlayView(minion: minion)
-                }
-            )
-        default:
-            return AnyView(MinionInPlayView(minion: minion))
-        }
-    }
+//    func interactiveMinionView(minion: MinionInPlay) -> AnyView {
+//        switch self.model.state {
+//        case .idle:
+//            return AnyView(
+//                Button(action: {
+//                    self.model.enter(state: .minionSelected(minion: minion))
+//                }) {
+//                    MinionInPlayView(minion: minion)
+//                }
+//            )
+//        case .minionSelected(let attacker):
+//            return AnyView(
+//                Button(action: {
+//                    self.model.enter(state: .targetSelected(target: minion, attacker: attacker))
+//                }) {
+//                    MinionInPlayView(minion: minion)
+//                }
+//            )
+//        default:
+//            return AnyView(MinionInPlayView(minion: minion))
+//        }
+//    }
 
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(self.game.redBoard, id: \.name) { minion in
-                self.interactiveMinionView(minion: minion)
-//                MinionInPlayView(minion: minion)
+            ForEach(self.board, id: \.name) { minion in
+                Button(action: {
+                    self.model.selectMinionInBattlefield(minion: minion)
+                }) {
+                    MinionInPlayView(minion: minion)
+                }
             }
         }
         .frame(width: CGFloat(maxWidth), height: 500)
@@ -52,8 +55,7 @@ struct SimpleBoardView: View {
 
 struct SimpleBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        SimpleBoardView()
-            .environmentObject(Game.sharedSample)
+        SimpleBoardView(board: .constant(Game.sharedSample.redBoard))
             .environmentObject(ViewModel(game: Game.sharedSample))
     }
 }

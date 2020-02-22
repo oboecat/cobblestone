@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MinionPlacementView: View {
     @ObservedObject var dropZone: MinionDropZoneDelegate
-    @State var isTargeted = false
+//    @State var isTargeted = false
     var index: Int
 //    @State var dropLocation: CGPoint = .zero
     
