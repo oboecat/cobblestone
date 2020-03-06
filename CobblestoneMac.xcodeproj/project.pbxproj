@@ -38,7 +38,6 @@
 		4B99F56023F4C50C00F619D3 /* CancelButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99F55F23F4C50C00F619D3 /* CancelButtonView.swift */; };
 		4BA9CB3423DFC794000DC05A /* CardParameterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9CB3223DFC793000DC05A /* CardParameterView.swift */; };
 		4BA9CB3523DFC794000DC05A /* MinionPortraitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9CB3323DFC794000DC05A /* MinionPortraitView.swift */; };
-		4BA9CB3923E0ECF2000DC05A /* UserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9CB3823E0ECF2000DC05A /* UserAction.swift */; };
 		4BAD3C1A23DF835F003EE5AD /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAD3C1923DF835F003EE5AD /* Player.swift */; };
 		4BE0712623DF99DF000C2933 /* sample_games.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BE0712523DF99DF000C2933 /* sample_games.json */; };
 		4BE0712923DFBA2C000C2933 /* MinionMash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE0712823DFBA2C000C2933 /* MinionMash.swift */; };
@@ -84,7 +83,6 @@
 		4B99F55F23F4C50C00F619D3 /* CancelButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButtonView.swift; sourceTree = "<group>"; };
 		4BA9CB3223DFC793000DC05A /* CardParameterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardParameterView.swift; path = "CobblestoneMac/Views 2/CardParameterView.swift"; sourceTree = SOURCE_ROOT; };
 		4BA9CB3323DFC794000DC05A /* MinionPortraitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MinionPortraitView.swift; path = "CobblestoneMac/Views 2/MinionPortraitView.swift"; sourceTree = SOURCE_ROOT; };
-		4BA9CB3823E0ECF2000DC05A /* UserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAction.swift; sourceTree = "<group>"; };
 		4BAD3C1923DF835F003EE5AD /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		4BE0712523DF99DF000C2933 /* sample_games.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_games.json; sourceTree = "<group>"; };
 		4BE0712823DFBA2C000C2933 /* MinionMash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinionMash.swift; sourceTree = "<group>"; };
@@ -125,9 +123,9 @@
 			children = (
 				266095F12374CA3B00740F52 /* AppDelegate.swift */,
 				266095F32374CA3B00740F52 /* ContentView.swift */,
+				266096082374D5F600740F52 /* Models */,
 				4BA9CB3A23E10C5A000DC05A /* StateMachine */,
 				4BA9CB3623DFC7A6000DC05A /* Views */,
-				266096082374D5F600740F52 /* Models */,
 				4BE0712723DFBA14000C2933 /* Test */,
 				267B0D3B23872A6C009D9DF2 /* DraggableViewModifier.swift */,
 				268E79272387344600A10CBF /* DropZoneViewModifier.swift */,
@@ -157,14 +155,13 @@
 			children = (
 				2660960B2374D60C00740F52 /* Data.swift */,
 				26E3B707238499E3005D4EE6 /* DragAndDrop.swift */,
-				4BA9CB3823E0ECF2000DC05A /* UserAction.swift */,
 				267FB5AA23888100009BE2E5 /* Game.swift */,
 				4BAD3C1923DF835F003EE5AD /* Player.swift */,
-				266096092374D60600740F52 /* Card.swift */,
 				265C414423AAC742005E7E59 /* Effect.swift */,
 				2642FB9323A423E4007C7D70 /* Character.swift */,
 				2642FB9523A44055007C7D70 /* Hero.swift */,
 				2642FB9723A44455007C7D70 /* Minion.swift */,
+				266096092374D60600740F52 /* Card.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -361,7 +358,6 @@
 			files = (
 				4BE0712923DFBA2C000C2933 /* MinionMash.swift in Sources */,
 				4B79CDBC23EA1C090092BC33 /* SimpleBoardView.swift in Sources */,
-				4BA9CB3923E0ECF2000DC05A /* UserAction.swift in Sources */,
 				265C414523AAC742005E7E59 /* Effect.swift in Sources */,
 				2642FB9823A44455007C7D70 /* Minion.swift in Sources */,
 				2632CE682375DF5900F0FB45 /* CardInHandView.swift in Sources */,

@@ -10,34 +10,11 @@ import SwiftUI
 import GameKit
 
 struct SimpleBoardView: View {
-    @Binding var board: [MinionInPlay]
     @EnvironmentObject var model: ViewModel
+    var board: [MinionInPlay]
     let maxWidth = 840.0
     let minionWidth = 120.0
     let spacing = 0.0
-
-//    func interactiveMinionView(minion: MinionInPlay) -> AnyView {
-//        switch self.model.state {
-//        case .idle:
-//            return AnyView(
-//                Button(action: {
-//                    self.model.enter(state: .minionSelected(minion: minion))
-//                }) {
-//                    MinionInPlayView(minion: minion)
-//                }
-//            )
-//        case .minionSelected(let attacker):
-//            return AnyView(
-//                Button(action: {
-//                    self.model.enter(state: .targetSelected(target: minion, attacker: attacker))
-//                }) {
-//                    MinionInPlayView(minion: minion)
-//                }
-//            )
-//        default:
-//            return AnyView(MinionInPlayView(minion: minion))
-//        }
-//    }
 
     var body: some View {
         HStack(spacing: 0) {
@@ -55,7 +32,7 @@ struct SimpleBoardView: View {
 
 struct SimpleBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        SimpleBoardView(board: .constant(Game.sharedSample.redBoard))
+        SimpleBoardView(board: Game.sharedSample.board[.red]!)
             .environmentObject(ViewModel(game: Game.sharedSample))
     }
 }

@@ -18,8 +18,8 @@ struct ContentView: View {
                 CancelButtonView()
                 ConfirmButtonView()
             }
-            SimpleBoardView(board: $game.redBoard)
-            HandView(hand: $game.redPlayer.hand)
+            SimpleBoardView(board: game.board[.red]!)
+            HandView(hand: game.redPlayer.hand)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

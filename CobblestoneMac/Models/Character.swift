@@ -55,7 +55,6 @@ struct Health {
     var max: Int
     var base: Int
     var status: Status
-    weak var delegate: DeathDelegate?
     
     init(_ value: Int) {
         self.current = value
@@ -88,12 +87,9 @@ struct Health {
     }
 }
 
-class Character: DeathDelegate {
+class Character {
     var attack: Attack
     var health: Health
-//    var attackModifiers = [(attack: Int) -> Int]()
-//    var healthModifiers = [(currentHealth: Int, maxHealth: Int) -> (Int, Int)]()
-    
 //    var frozen: Bool = false
 //    var stealthed: Bool = false
 //    var immune: Bool = false
@@ -102,19 +98,7 @@ class Character: DeathDelegate {
     init(attack: Int, health: Int) {
         self.attack = Attack(attack)
         self.health = Health(health)
-        
-        self.health.delegate = self
     }
-    
-//    func addAttackModifier(modifier: @escaping (Int) -> Int) {
-//        attackModifiers.append(modifier)
-//        attack.current = modifier(attack.current)
-//    }
-//
-//    func addHealthModifier(modifier: @escaping (Int, Int) -> (Int, Int)) {
-//        healthModifiers.append(modifier)
-//        (health.current, health.max) = modifier(health.current, health.max)
-//    }
 
     func silence() {
         attack.current = attack.base
@@ -130,20 +114,4 @@ class Character: DeathDelegate {
     func destroy() {
         print("Rest in pieces")
     }
-    
-//    func setFrozen() {
-//        frozen = true
-//    }
-//
-//    func setStealthed() {
-//        stealthed = true
-//    }
-//
-//    func setImmune() {
-//        immune = true
-//    }
-//
-//    func setWindfury() {
-//        windfury = true
-//    }
 }

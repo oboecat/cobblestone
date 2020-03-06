@@ -9,36 +9,27 @@
 import SwiftUI
 
 struct HandView: View {
-    @Binding var hand: [Card]
     @EnvironmentObject var model: ViewModel
+    var hand: [Card]
     
     let maxWidth = 400
-    
     let spacing = { (handWidth: Int, n: Int) in
         min(-30, CGFloat((handWidth - 160 * n) / (n - 1)))
     }
     
-//    func interactiveCardView(card: Card) -> AnyView {
-//        switch self.model.state {
-//        case .idle:
-//            return AnyView(Button(action: {
-//                self.model.enter(state: .cardSelected(card: card))
-//            }) {
-//                CardInHandView(card: card)
-//            })
-//        default:
-//            return AnyView(CardInHandView(card: card))
-//        }
-//    }
-
     var body: some View {
         HStack {
-            ForEach(self.hand) { (card: Card) in
+            ForEach(hand) { (card: Card) in
                 Button(action: {
                     self.model.selectCardFromHand(card: card)
                 }) {
-                    CardInHandView(card: card)
+                    VStack {
+                        CardInHandView(card: card)
+                        Text(card.name)
+                    }
+                                        
                 }
+//                CardInHandView(card: card)
             }
         }
     }
@@ -46,7 +37,8 @@ struct HandView: View {
 
 struct HandView_Previews: PreviewProvider {
     static var previews: some View {
-        HandView(hand: .constant([Card](minionCollection[0...1])))
-            .environmentObject(DragAndDrop())
+        HandView(hand: [Card](minionCollection[0...1]))
+            .environmentObject(ViewModel(game: Game.sharedSample))
+//            .environmentObject(DragAndDrop())
     }
 }

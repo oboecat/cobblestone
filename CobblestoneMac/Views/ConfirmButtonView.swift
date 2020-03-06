@@ -17,18 +17,6 @@ struct ConfirmButtonView: View {
         }) {
             Text("Confirm")
         }
-//        Button(action: {
-//            switch self.model.state {
-//            case .positionSelected(let position, let minionCard):
-//                self.model.enter(state: .confirm(action: .playMinion(minionCard: minionCard, position: position)))
-//            case .targetSelected(let target, let attacker):
-//                self.model.enter(state: .confirm(action: .combat(attacker: attacker, target: target)))
-//            default:
-//                print("complete action first")
-//            }
-//        }) {
-//            Text("Confirm")
-//        }
     }
 }
 

@@ -8,15 +8,21 @@
 
 import Foundation
 
-class Player: ObservableObject {
-    @Published var hand: [Card]
-    @Published var deck: [Card]
-    @Published var maxMana: Int
-    @Published var mana: Int
+struct Player {
+    let color: PlayerColor
+    var hand: [Card]
+    var deck: [Card]
+    var maxMana: Int
+    var mana: Int
     
-    init(hand: [Card] = [Card.default],
+    static let red = Player(color: .red, hand: [Card.default], deck: [Card](), mana: 1)
+    static let blue = Player(color: .blue, hand: [Card.default], deck: [Card](), mana: 1)
+    
+    init(color: PlayerColor,
+         hand: [Card] = [Card.default],
          deck: [Card] = [Card](),
          mana: Int = 1) {
+        self.color = color
         self.hand = hand
         self.deck = deck
         self.maxMana = mana

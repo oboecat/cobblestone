@@ -8,17 +8,21 @@
 
 import Foundation
 
-
-struct Card: Codable, Identifiable, Equatable {
-    static func == (lhs: Card, rhs: Card) -> Bool {
-        return lhs.id == rhs.id
-    }
-    
-    let id: Int
-    let name: String
-    let description: String?
+struct Card: Codable, Identifiable {
+    let id = UUID()
+    var name: String
     var cost: Int
+    let description: String?
     var minion: Minion
     
-    static let `default` = Self(id: 0, name: "Wisp", description: nil, cost: 0, minion: Minion(name: "Wisp", attack: 1, health: 1))
+    static let `default` = Card(name: "Wisp", cost: 0, description: nil, minion: Minion(name: "Wisp", attack: 1, health: 1))
+}
+
+extension Card {
+    init(minion: Minion, cost: Int, description: String?) {
+        self.name = minion.name
+        self.cost = cost
+        self.description = description
+        self.minion = minion
+    }
 }
