@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum PlayerColor: String, Codable {
+enum PlayerColor: Int, Codable {
     case red, blue
 }
 

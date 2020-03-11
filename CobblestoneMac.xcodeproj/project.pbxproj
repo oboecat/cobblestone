@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		2612E5102391C18700288C9B /* MinionDropZoneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2612E50F2391C18700288C9B /* MinionDropZoneDelegate.swift */; };
 		2612E5122391C62B00288C9B /* DropZoneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2612E5112391C62B00288C9B /* DropZoneDelegate.swift */; };
-		2632CE642375DB8A00F0FB45 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2632CE632375DB8A00F0FB45 /* BoardView.swift */; };
-		2632CE682375DF5900F0FB45 /* CardInHandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2632CE672375DF5900F0FB45 /* CardInHandView.swift */; };
-		2632CE6A2376065700F0FB45 /* MinionPlacementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2632CE692376065700F0FB45 /* MinionPlacementView.swift */; };
 		2642FB9423A423E4007C7D70 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2642FB9323A423E4007C7D70 /* Character.swift */; };
 		2642FB9623A44055007C7D70 /* Hero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2642FB9523A44055007C7D70 /* Hero.swift */; };
 		2642FB9823A44455007C7D70 /* Minion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2642FB9723A44455007C7D70 /* Minion.swift */; };
@@ -21,8 +18,6 @@
 		266095F62374CA4100740F52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 266095F52374CA4100740F52 /* Assets.xcassets */; };
 		266095F92374CA4100740F52 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 266095F82374CA4100740F52 /* Preview Assets.xcassets */; };
 		266095FC2374CA4100740F52 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 266095FA2374CA4100740F52 /* Main.storyboard */; };
-		266096052374D20C00740F52 /* HandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266096042374D20C00740F52 /* HandView.swift */; };
-		266096072374D21200740F52 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266096062374D21200740F52 /* CardView.swift */; };
 		2660960A2374D60600740F52 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266096092374D60600740F52 /* Card.swift */; };
 		2660960C2374D60C00740F52 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2660960B2374D60C00740F52 /* Data.swift */; };
 		2660960F2374D62400740F52 /* minions.json in Resources */ = {isa = PBXBuildFile; fileRef = 2660960E2374D62400740F52 /* minions.json */; };
@@ -30,14 +25,20 @@
 		267FB5AB23888100009BE2E5 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267FB5AA23888100009BE2E5 /* Game.swift */; };
 		268E79282387344600A10CBF /* DropZoneViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E79272387344600A10CBF /* DropZoneViewModifier.swift */; };
 		26E3B708238499E3005D4EE6 /* DragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B707238499E3005D4EE6 /* DragAndDrop.swift */; };
-		4B3B479D23EFBF2A0069F70A /* MinionInPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3B479C23EFBF2A0069F70A /* MinionInPlayView.swift */; };
-		4B79CDBC23EA1C090092BC33 /* SimpleBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79CDBB23EA1C090092BC33 /* SimpleBoardView.swift */; };
 		4B79CDBE23ECAF630092BC33 /* UIActionStateMachineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79CDBD23ECAF630092BC33 /* UIActionStateMachineDelegate.swift */; };
+		4B7B1F0F24130BBC00CD795D /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F0E24130BBC00CD795D /* Board.swift */; };
+		4B7B1F1C241983F100CD795D /* CardParameterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F11241983F100CD795D /* CardParameterView.swift */; };
+		4B7B1F1D241983F100CD795D /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F12241983F100CD795D /* BoardView.swift */; };
+		4B7B1F1E241983F100CD795D /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F13241983F100CD795D /* CardView.swift */; };
+		4B7B1F1F241983F100CD795D /* CardInHandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F14241983F100CD795D /* CardInHandView.swift */; };
+		4B7B1F20241983F100CD795D /* MinionPlacementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F15241983F100CD795D /* MinionPlacementView.swift */; };
+		4B7B1F21241983F100CD795D /* MinionInPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F16241983F100CD795D /* MinionInPlayView.swift */; };
+		4B7B1F22241983F100CD795D /* ConfirmButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F17241983F100CD795D /* ConfirmButtonView.swift */; };
+		4B7B1F23241983F100CD795D /* CancelButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F18241983F100CD795D /* CancelButtonView.swift */; };
+		4B7B1F24241983F100CD795D /* SimpleBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F19241983F100CD795D /* SimpleBoardView.swift */; };
+		4B7B1F25241983F100CD795D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F1A241983F100CD795D /* ContentView.swift */; };
+		4B7B1F26241983F100CD795D /* MinionPortraitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F1B241983F100CD795D /* MinionPortraitView.swift */; };
 		4B8C0CD923E11AF5000D8B40 /* UIActionStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8C0CD823E11AF5000D8B40 /* UIActionStateMachine.swift */; };
-		4B99F55E23F4C3E600F619D3 /* ConfirmButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99F55D23F4C3E600F619D3 /* ConfirmButtonView.swift */; };
-		4B99F56023F4C50C00F619D3 /* CancelButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B99F55F23F4C50C00F619D3 /* CancelButtonView.swift */; };
-		4BA9CB3423DFC794000DC05A /* CardParameterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9CB3223DFC793000DC05A /* CardParameterView.swift */; };
-		4BA9CB3523DFC794000DC05A /* MinionPortraitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BA9CB3323DFC794000DC05A /* MinionPortraitView.swift */; };
 		4BAD3C1A23DF835F003EE5AD /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAD3C1923DF835F003EE5AD /* Player.swift */; };
 		4BE0712623DF99DF000C2933 /* sample_games.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BE0712523DF99DF000C2933 /* sample_games.json */; };
 		4BE0712923DFBA2C000C2933 /* MinionMash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE0712823DFBA2C000C2933 /* MinionMash.swift */; };
@@ -49,9 +50,6 @@
 		23F70D48B781D7F5A1B828B3 /* Pods_CobblestoneMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CobblestoneMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2612E50F2391C18700288C9B /* MinionDropZoneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinionDropZoneDelegate.swift; sourceTree = "<group>"; };
 		2612E5112391C62B00288C9B /* DropZoneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropZoneDelegate.swift; sourceTree = "<group>"; };
-		2632CE632375DB8A00F0FB45 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BoardView.swift; path = "CobblestoneMac/Views 2/BoardView.swift"; sourceTree = SOURCE_ROOT; };
-		2632CE672375DF5900F0FB45 /* CardInHandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardInHandView.swift; path = "CobblestoneMac/Views 2/CardInHandView.swift"; sourceTree = SOURCE_ROOT; };
-		2632CE692376065700F0FB45 /* MinionPlacementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MinionPlacementView.swift; path = "CobblestoneMac/Views 2/MinionPlacementView.swift"; sourceTree = SOURCE_ROOT; };
 		2642FB9323A423E4007C7D70 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		2642FB9523A44055007C7D70 /* Hero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hero.swift; sourceTree = "<group>"; };
 		2642FB9723A44455007C7D70 /* Minion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minion.swift; sourceTree = "<group>"; };
@@ -64,8 +62,6 @@
 		266095FB2374CA4100740F52 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		266095FD2374CA4100740F52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		266095FE2374CA4100740F52 /* CobblestoneMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CobblestoneMac.entitlements; sourceTree = "<group>"; };
-		266096042374D20C00740F52 /* HandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HandView.swift; path = ../../DragAndDrop/HandView.swift; sourceTree = "<group>"; };
-		266096062374D21200740F52 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardView.swift; path = "CobblestoneMac/Views 2/CardView.swift"; sourceTree = SOURCE_ROOT; };
 		266096092374D60600740F52 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		2660960B2374D60C00740F52 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		2660960E2374D62400740F52 /* minions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = minions.json; sourceTree = "<group>"; };
@@ -75,14 +71,20 @@
 		268E79272387344600A10CBF /* DropZoneViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropZoneViewModifier.swift; sourceTree = "<group>"; };
 		26E3B707238499E3005D4EE6 /* DragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDrop.swift; sourceTree = "<group>"; };
 		47C0BCAA45CAB60A9CC46CAF /* Pods-CobblestoneMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CobblestoneMac.debug.xcconfig"; path = "Target Support Files/Pods-CobblestoneMac/Pods-CobblestoneMac.debug.xcconfig"; sourceTree = "<group>"; };
-		4B3B479C23EFBF2A0069F70A /* MinionInPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinionInPlayView.swift; sourceTree = "<group>"; };
-		4B79CDBB23EA1C090092BC33 /* SimpleBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleBoardView.swift; sourceTree = "<group>"; };
 		4B79CDBD23ECAF630092BC33 /* UIActionStateMachineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActionStateMachineDelegate.swift; sourceTree = "<group>"; };
+		4B7B1F0E24130BBC00CD795D /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		4B7B1F11241983F100CD795D /* CardParameterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardParameterView.swift; sourceTree = "<group>"; };
+		4B7B1F12241983F100CD795D /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		4B7B1F13241983F100CD795D /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		4B7B1F14241983F100CD795D /* CardInHandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardInHandView.swift; sourceTree = "<group>"; };
+		4B7B1F15241983F100CD795D /* MinionPlacementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinionPlacementView.swift; sourceTree = "<group>"; };
+		4B7B1F16241983F100CD795D /* MinionInPlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinionInPlayView.swift; sourceTree = "<group>"; };
+		4B7B1F17241983F100CD795D /* ConfirmButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmButtonView.swift; sourceTree = "<group>"; };
+		4B7B1F18241983F100CD795D /* CancelButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButtonView.swift; sourceTree = "<group>"; };
+		4B7B1F19241983F100CD795D /* SimpleBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleBoardView.swift; sourceTree = "<group>"; };
+		4B7B1F1A241983F100CD795D /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4B7B1F1B241983F100CD795D /* MinionPortraitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinionPortraitView.swift; sourceTree = "<group>"; };
 		4B8C0CD823E11AF5000D8B40 /* UIActionStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActionStateMachine.swift; sourceTree = "<group>"; };
-		4B99F55D23F4C3E600F619D3 /* ConfirmButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButtonView.swift; sourceTree = "<group>"; };
-		4B99F55F23F4C50C00F619D3 /* CancelButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelButtonView.swift; sourceTree = "<group>"; };
-		4BA9CB3223DFC793000DC05A /* CardParameterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CardParameterView.swift; path = "CobblestoneMac/Views 2/CardParameterView.swift"; sourceTree = SOURCE_ROOT; };
-		4BA9CB3323DFC794000DC05A /* MinionPortraitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MinionPortraitView.swift; path = "CobblestoneMac/Views 2/MinionPortraitView.swift"; sourceTree = SOURCE_ROOT; };
 		4BAD3C1923DF835F003EE5AD /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		4BE0712523DF99DF000C2933 /* sample_games.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_games.json; sourceTree = "<group>"; };
 		4BE0712823DFBA2C000C2933 /* MinionMash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinionMash.swift; sourceTree = "<group>"; };
@@ -123,9 +125,9 @@
 			children = (
 				266095F12374CA3B00740F52 /* AppDelegate.swift */,
 				266095F32374CA3B00740F52 /* ContentView.swift */,
+				4B7B1F10241983F100CD795D /* Views */,
 				266096082374D5F600740F52 /* Models */,
 				4BA9CB3A23E10C5A000DC05A /* StateMachine */,
-				4BA9CB3623DFC7A6000DC05A /* Views */,
 				4BE0712723DFBA14000C2933 /* Test */,
 				267B0D3B23872A6C009D9DF2 /* DraggableViewModifier.swift */,
 				268E79272387344600A10CBF /* DropZoneViewModifier.swift */,
@@ -156,6 +158,7 @@
 				2660960B2374D60C00740F52 /* Data.swift */,
 				26E3B707238499E3005D4EE6 /* DragAndDrop.swift */,
 				267FB5AA23888100009BE2E5 /* Game.swift */,
+				4B7B1F0E24130BBC00CD795D /* Board.swift */,
 				4BAD3C1923DF835F003EE5AD /* Player.swift */,
 				265C414423AAC742005E7E59 /* Effect.swift */,
 				2642FB9323A423E4007C7D70 /* Character.swift */,
@@ -175,28 +178,20 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		4B3B479E23EFC0770069F70A /* Hand Views */ = {
+		4B7B1F10241983F100CD795D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				266096042374D20C00740F52 /* HandView.swift */,
-				2632CE672375DF5900F0FB45 /* CardInHandView.swift */,
-			);
-			path = "Hand Views";
-			sourceTree = "<group>";
-		};
-		4BA9CB3623DFC7A6000DC05A /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				4BA9CB3223DFC793000DC05A /* CardParameterView.swift */,
-				266096062374D21200740F52 /* CardView.swift */,
-				4BA9CB3323DFC794000DC05A /* MinionPortraitView.swift */,
-				4B79CDBB23EA1C090092BC33 /* SimpleBoardView.swift */,
-				2632CE632375DB8A00F0FB45 /* BoardView.swift */,
-				4B3B479C23EFBF2A0069F70A /* MinionInPlayView.swift */,
-				2632CE692376065700F0FB45 /* MinionPlacementView.swift */,
-				4B99F55D23F4C3E600F619D3 /* ConfirmButtonView.swift */,
-				4B99F55F23F4C50C00F619D3 /* CancelButtonView.swift */,
-				4B3B479E23EFC0770069F70A /* Hand Views */,
+				4B7B1F11241983F100CD795D /* CardParameterView.swift */,
+				4B7B1F12241983F100CD795D /* BoardView.swift */,
+				4B7B1F13241983F100CD795D /* CardView.swift */,
+				4B7B1F14241983F100CD795D /* CardInHandView.swift */,
+				4B7B1F15241983F100CD795D /* MinionPlacementView.swift */,
+				4B7B1F16241983F100CD795D /* MinionInPlayView.swift */,
+				4B7B1F17241983F100CD795D /* ConfirmButtonView.swift */,
+				4B7B1F18241983F100CD795D /* CancelButtonView.swift */,
+				4B7B1F19241983F100CD795D /* SimpleBoardView.swift */,
+				4B7B1F1A241983F100CD795D /* ContentView.swift */,
+				4B7B1F1B241983F100CD795D /* MinionPortraitView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -356,34 +351,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B7B1F1D241983F100CD795D /* BoardView.swift in Sources */,
+				4B7B1F24241983F100CD795D /* SimpleBoardView.swift in Sources */,
 				4BE0712923DFBA2C000C2933 /* MinionMash.swift in Sources */,
-				4B79CDBC23EA1C090092BC33 /* SimpleBoardView.swift in Sources */,
+				4B7B1F20241983F100CD795D /* MinionPlacementView.swift in Sources */,
+				4B7B1F0F24130BBC00CD795D /* Board.swift in Sources */,
 				265C414523AAC742005E7E59 /* Effect.swift in Sources */,
 				2642FB9823A44455007C7D70 /* Minion.swift in Sources */,
-				2632CE682375DF5900F0FB45 /* CardInHandView.swift in Sources */,
 				4BAD3C1A23DF835F003EE5AD /* Player.swift in Sources */,
-				2632CE642375DB8A00F0FB45 /* BoardView.swift in Sources */,
-				266096052374D20C00740F52 /* HandView.swift in Sources */,
 				2660960C2374D60C00740F52 /* Data.swift in Sources */,
+				4B7B1F26241983F100CD795D /* MinionPortraitView.swift in Sources */,
 				267B0D3C23872A6C009D9DF2 /* DraggableViewModifier.swift in Sources */,
 				26E3B708238499E3005D4EE6 /* DragAndDrop.swift in Sources */,
-				4BA9CB3423DFC794000DC05A /* CardParameterView.swift in Sources */,
+				4B7B1F1C241983F100CD795D /* CardParameterView.swift in Sources */,
 				2612E5102391C18700288C9B /* MinionDropZoneDelegate.swift in Sources */,
-				4B3B479D23EFBF2A0069F70A /* MinionInPlayView.swift in Sources */,
+				4B7B1F23241983F100CD795D /* CancelButtonView.swift in Sources */,
 				266095F42374CA3B00740F52 /* ContentView.swift in Sources */,
 				2660960A2374D60600740F52 /* Card.swift in Sources */,
 				4B8C0CD923E11AF5000D8B40 /* UIActionStateMachine.swift in Sources */,
 				267FB5AB23888100009BE2E5 /* Game.swift in Sources */,
 				2642FB9623A44055007C7D70 /* Hero.swift in Sources */,
-				266096072374D21200740F52 /* CardView.swift in Sources */,
-				4B99F55E23F4C3E600F619D3 /* ConfirmButtonView.swift in Sources */,
-				2632CE6A2376065700F0FB45 /* MinionPlacementView.swift in Sources */,
-				4B99F56023F4C50C00F619D3 /* CancelButtonView.swift in Sources */,
 				2612E5122391C62B00288C9B /* DropZoneDelegate.swift in Sources */,
 				4B79CDBE23ECAF630092BC33 /* UIActionStateMachineDelegate.swift in Sources */,
+				4B7B1F1F241983F100CD795D /* CardInHandView.swift in Sources */,
+				4B7B1F21241983F100CD795D /* MinionInPlayView.swift in Sources */,
 				266095F22374CA3B00740F52 /* AppDelegate.swift in Sources */,
-				4BA9CB3523DFC794000DC05A /* MinionPortraitView.swift in Sources */,
 				2642FB9423A423E4007C7D70 /* Character.swift in Sources */,
+				4B7B1F22241983F100CD795D /* ConfirmButtonView.swift in Sources */,
+				4B7B1F25241983F100CD795D /* ContentView.swift in Sources */,
+				4B7B1F1E241983F100CD795D /* CardView.swift in Sources */,
 				268E79282387344600A10CBF /* DropZoneViewModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
