@@ -32,7 +32,7 @@ struct SimpleBoardView: View {
 
 struct SimpleBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        SimpleBoardView(board: Game.sharedSample.board[.red]!)
+        SimpleBoardView(board: Game.sharedSample.board.red)
             .environmentObject(ViewModel(game: Game.sharedSample))
     }
 }

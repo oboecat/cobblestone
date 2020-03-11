@@ -28,7 +28,7 @@ struct BoardView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(self.game.board[.red]!, id: \.name) { minion in
+            ForEach(self.game.board.red, id: \.name) { minion in
 //                MinionPlacementView(dropZone: self.minionDropZoneDelegates[index], index: index)
                 MinionInPlayView(minion: minion)
             }

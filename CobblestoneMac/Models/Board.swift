@@ -11,8 +11,29 @@ import Foundation
 struct Board {
     var minions: [[MinionInPlay]]
     
+    var red: [MinionInPlay] {
+        get {
+            minions[0]
+        }
+        set {
+            minions[0] = newValue
+        }
+    }
+    var blue: [MinionInPlay] {
+        get {
+            minions[1]
+        }
+        set {
+            minions[1] = newValue
+        }
+    }
+    
     init(_ minions: [[MinionInPlay]]) {
         self.minions = minions
+    }
+    
+    init(red: [MinionInPlay], blue: [MinionInPlay]) {
+        self.minions = [red, blue]
     }
     
     init() {
@@ -34,6 +55,15 @@ struct Board {
         }
         set {
             minions[side][index] = newValue
+        }
+    }
+    
+    subscript(color: PlayerColor) -> [MinionInPlay] {
+        get {
+            minions[color.rawValue]
+        }
+        set {
+            minions[color.rawValue] = newValue
         }
     }
 }

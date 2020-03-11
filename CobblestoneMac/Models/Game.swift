@@ -18,14 +18,14 @@ class Game: ObservableObject {
     @Published var bluePlayer: Player
 //    @Published var redBoard: [MinionInPlay]
 //    @Published var blueBoard: [MinionInPlay]
-    @Published var board: [PlayerColor: [MinionInPlay]]
+    @Published var board: Board
     
     init(startingTurn: Int,
          redPlayer: Player = Player.red,
          bluePlayer: Player = Player.blue,
 //         redBoard: [MinionInPlay] = [MinionInPlay](),
 //         blueBoard: [MinionInPlay] = [MinionInPlay](),
-         board: [PlayerColor: [MinionInPlay]] = [.red: [], .blue: []]) {
+         board: Board = Board()) {
         self.turn = startingTurn
         self.redPlayer = redPlayer
         self.bluePlayer = bluePlayer
@@ -37,7 +37,7 @@ class Game: ObservableObject {
         redPlayer: Player(color: .red, hand: [Card](minionCollection[3...5]), mana: 10),
 //        redBoard: minionCollection[6...8].map { MinionInPlay($0.minion, color: .red, mustRest: false) },
 //        blueBoard: minionCollection[9...10].map { MinionInPlay($0.minion, color: .blue, mustRest: false) },
-        board: [ .red: minionCollection[6...8].map { MinionInPlay($0.minion, color: .red, mustRest: false) }, .blue: [] ]
+        board: Board(red: minionCollection[6...8].map { MinionInPlay($0.minion, color: .red, mustRest: false) }, blue: [])
     )
     
     func nextTurn() {
@@ -49,8 +49,8 @@ class Game: ObservableObject {
         
         redPlayer.mana = redPlayer.maxMana
         
-        for var minion in board[.red]! {
-            minion.attacksRemaining = 1
+        for index in board.red.indices {
+            board[.red, index].attacksRemaining = 1
         }
         
         if redPlayer.deck.count > 0 {
@@ -60,16 +60,20 @@ class Game: ObservableObject {
     }
     
     func playCard(_ card: Card) {
-        playMinion(card, position: 0)
+        playMinion(card, position: nil)
     }
     
-    func playMinion(_ card: Card, position: Int) {
+    func playMinion(_ card: Card, position: Int?) {
         if let index = redPlayer.hand.firstIndex(where: { card.id == $0.id }), card.cost <= redPlayer.mana {
             let minion = MinionInPlay(card.minion, color: .red)
             redPlayer.mana -= card.cost
             redPlayer.hand.remove(at: index)
             
-            board[.red]!.insert(minion, at: position > board[.red]!.endIndex ? board[.red]!.endIndex : position)
+            if let index = position {
+                board.red.insert(minion, at: index < board.red.endIndex ? index : board.red.endIndex)
+            } else {
+                board.red.insert(minion, at: board.red.endIndex)
+            }
         }
     }
     
@@ -88,13 +92,13 @@ class Game: ObservableObject {
             return
         }
         
-        if !defender.statuses.contains(.taunt) && board[defender.color]!.contains(where: { $0.statuses.contains(.taunt) }) {
+        if !defender.statuses.contains(.taunt) && board[defender.color].contains(where: { $0.statuses.contains(.taunt) }) {
             print("That minion is protected by a Taunt minion.")
             return
         }
         
-        var newAttacker = board[attacker.color]![board[attacker.color]!.firstIndex(where: { $0.id == attacker.id })!]
-        var newDefender = board[defender.color]![board[defender.color]!.firstIndex(where: { $0.id == defender.id })!]
+        var newAttacker = board[attacker.color][board[attacker.color].firstIndex(where: { $0.id == attacker.id })!]
+        var newDefender = board[defender.color][board[defender.color].firstIndex(where: { $0.id == defender.id })!]
         combat(attacker: &newAttacker, defender: &newDefender)
     }
     
@@ -117,22 +121,22 @@ class Game: ObservableObject {
             defender.health.damage(by: attacker.attack.current)
         }
         
-        let defenderIndex = board[defender.color]!.firstIndex(where: { $0.id == defender.id })!
+        let defenderIndex = board[defender.color].firstIndex(where: { $0.id == defender.id })!
         if defender.health.status == .dead {
             print("\(defender.name) died")
-            board[defender.color]!.remove(at: defenderIndex)
+            board[defender.color].remove(at: defenderIndex)
         } else {
             print("\(defender.name) has \(defender.health.current) health left")
-            board[defender.color]![defenderIndex] = defender
+            board[defender.color][defenderIndex] = defender
         }
         
-        let attackerIndex = board[attacker.color]!.firstIndex(where: { $0.id == attacker.id })!
+        let attackerIndex = board[attacker.color].firstIndex(where: { $0.id == attacker.id })!
         if attacker.health.status == .dead {
             print("\(attacker.name) died")
-            board[attacker.color]!.remove(at: attackerIndex)
+            board[attacker.color].remove(at: attackerIndex)
         } else {
             print("\(attacker.name) has \(attacker.health.current) health left")
-            board[attacker.color]![attackerIndex] = attacker
+            board[attacker.color][attackerIndex] = attacker
         }
     }
     

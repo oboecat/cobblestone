@@ -141,9 +141,7 @@ class ViewModel: ObservableObject, UIActionStateMachineDelegate {
         print(action.description())
         switch action {
         case .combat(let attacker, let target):
-            print(attacker.attacksRemaining)
             game.tryCombat(attacker, attacking: target)
-            print(attacker.attacksRemaining)
         case .playMinion(let minionCard, let position):
             game.playMinion(minionCard, position: position)
         default:

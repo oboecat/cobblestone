@@ -12,10 +12,10 @@ import SwiftState
 func test(game: Game, viewModel: ViewModel) {
     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
         print("Testing")
-        print("Will play a turn \(game.redPlayer.hand.count) \(game.board[.red]!.count)")
+        print("Will play a turn \(game.redPlayer.hand.count) \(game.board.red.count)")
 //        game.redBoard.remove(at: 0)
 //        game.playCard(game.redPlayer.hand.randomElement()!)
         game.redPlayer.hand[0].name = "test"
-        print("Played a turn \(game.redPlayer.hand.count) \(game.board[.red]!.count)")
+        print("Played a turn \(game.redPlayer.hand.count) \(game.board.red.count)")
     }
 }
