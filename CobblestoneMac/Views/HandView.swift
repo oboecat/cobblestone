@@ -20,16 +20,13 @@ struct HandView: View {
     var body: some View {
         HStack {
             ForEach(hand) { (card: Card) in
-                Button(action: {
-                    self.model.selectCardFromHand(card: card)
-                }) {
-                    VStack {
-                        CardInHandView(card: card)
-                        Text(card.name)
-                    }
-                                        
+                VStack {
+                    CardInHandView(card: card)
+                        .onTapGesture {
+                            self.model.selectCardFromHand(card: card)
+                        }
+                    Text(card.name)
                 }
-//                CardInHandView(card: card)
             }
         }
     }

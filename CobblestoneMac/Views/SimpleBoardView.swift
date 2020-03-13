@@ -14,16 +14,14 @@ struct SimpleBoardView: View {
     var board: [MinionInPlay]
     let maxWidth = 840.0
     let minionWidth = 120.0
-    let spacing = 0.0
 
     var body: some View {
-        HStack(spacing: 0) {
+        HStack(spacing: 20) {
             ForEach(self.board, id: \.name) { minion in
-                Button(action: {
-                    self.model.selectMinionInBattlefield(minion: minion)
-                }) {
-                    MinionInPlayView(minion: minion)
-                }
+                MinionInPlayView(minion: minion)
+                    .onTapGesture {
+                        self.model.selectMinionInBattlefield(minion: minion)
+                    }
             }
         }
         .frame(width: CGFloat(maxWidth), height: 500)
