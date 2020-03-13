@@ -39,6 +39,9 @@
 		4B7B1F25241983F100CD795D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F1A241983F100CD795D /* ContentView.swift */; };
 		4B7B1F26241983F100CD795D /* MinionPortraitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F1B241983F100CD795D /* MinionPortraitView.swift */; };
 		4B7B1F282419A1B100CD795D /* HandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F272419A1B100CD795D /* HandView.swift */; };
+		4B7B1F2A241B001200CD795D /* TurnButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F29241B001200CD795D /* TurnButtonView.swift */; };
+		4B7B1F2C241B039A00CD795D /* OpponentHandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F2B241B039A00CD795D /* OpponentHandView.swift */; };
+		4B7B1F2E241B04D600CD795D /* CardBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F2D241B04D600CD795D /* CardBackView.swift */; };
 		4B8C0CD923E11AF5000D8B40 /* UIActionStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8C0CD823E11AF5000D8B40 /* UIActionStateMachine.swift */; };
 		4BAD3C1A23DF835F003EE5AD /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAD3C1923DF835F003EE5AD /* Player.swift */; };
 		4BE0712623DF99DF000C2933 /* sample_games.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BE0712523DF99DF000C2933 /* sample_games.json */; };
@@ -86,6 +89,9 @@
 		4B7B1F1A241983F100CD795D /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4B7B1F1B241983F100CD795D /* MinionPortraitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinionPortraitView.swift; sourceTree = "<group>"; };
 		4B7B1F272419A1B100CD795D /* HandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandView.swift; sourceTree = "<group>"; };
+		4B7B1F29241B001200CD795D /* TurnButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnButtonView.swift; sourceTree = "<group>"; };
+		4B7B1F2B241B039A00CD795D /* OpponentHandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpponentHandView.swift; sourceTree = "<group>"; };
+		4B7B1F2D241B04D600CD795D /* CardBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackView.swift; sourceTree = "<group>"; };
 		4B8C0CD823E11AF5000D8B40 /* UIActionStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActionStateMachine.swift; sourceTree = "<group>"; };
 		4BAD3C1923DF835F003EE5AD /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		4BE0712523DF99DF000C2933 /* sample_games.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_games.json; sourceTree = "<group>"; };
@@ -183,18 +189,21 @@
 		4B7B1F10241983F100CD795D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4B7B1F11241983F100CD795D /* CardParameterView.swift */,
+				4B7B1F1A241983F100CD795D /* ContentView.swift */,
+				4B7B1F2B241B039A00CD795D /* OpponentHandView.swift */,
+				4B7B1F19241983F100CD795D /* SimpleBoardView.swift */,
 				4B7B1F12241983F100CD795D /* BoardView.swift */,
-				4B7B1F13241983F100CD795D /* CardView.swift */,
+				4B7B1F272419A1B100CD795D /* HandView.swift */,
 				4B7B1F14241983F100CD795D /* CardInHandView.swift */,
-				4B7B1F15241983F100CD795D /* MinionPlacementView.swift */,
+				4B7B1F13241983F100CD795D /* CardView.swift */,
+				4B7B1F2D241B04D600CD795D /* CardBackView.swift */,
 				4B7B1F16241983F100CD795D /* MinionInPlayView.swift */,
+				4B7B1F15241983F100CD795D /* MinionPlacementView.swift */,
+				4B7B1F1B241983F100CD795D /* MinionPortraitView.swift */,
+				4B7B1F11241983F100CD795D /* CardParameterView.swift */,
+				4B7B1F29241B001200CD795D /* TurnButtonView.swift */,
 				4B7B1F17241983F100CD795D /* ConfirmButtonView.swift */,
 				4B7B1F18241983F100CD795D /* CancelButtonView.swift */,
-				4B7B1F19241983F100CD795D /* SimpleBoardView.swift */,
-				4B7B1F272419A1B100CD795D /* HandView.swift */,
-				4B7B1F1A241983F100CD795D /* ContentView.swift */,
-				4B7B1F1B241983F100CD795D /* MinionPortraitView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -372,6 +381,7 @@
 				4B7B1F23241983F100CD795D /* CancelButtonView.swift in Sources */,
 				266095F42374CA3B00740F52 /* ContentView.swift in Sources */,
 				2660960A2374D60600740F52 /* Card.swift in Sources */,
+				4B7B1F2A241B001200CD795D /* TurnButtonView.swift in Sources */,
 				4B8C0CD923E11AF5000D8B40 /* UIActionStateMachine.swift in Sources */,
 				267FB5AB23888100009BE2E5 /* Game.swift in Sources */,
 				2642FB9623A44055007C7D70 /* Hero.swift in Sources */,
@@ -381,10 +391,12 @@
 				4B7B1F21241983F100CD795D /* MinionInPlayView.swift in Sources */,
 				266095F22374CA3B00740F52 /* AppDelegate.swift in Sources */,
 				2642FB9423A423E4007C7D70 /* Character.swift in Sources */,
+				4B7B1F2C241B039A00CD795D /* OpponentHandView.swift in Sources */,
 				4B7B1F22241983F100CD795D /* ConfirmButtonView.swift in Sources */,
 				4B7B1F25241983F100CD795D /* ContentView.swift in Sources */,
 				4B7B1F1E241983F100CD795D /* CardView.swift in Sources */,
 				268E79282387344600A10CBF /* DropZoneViewModifier.swift in Sources */,
+				4B7B1F2E241B04D600CD795D /* CardBackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

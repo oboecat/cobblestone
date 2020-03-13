@@ -13,72 +13,102 @@ enum PlayerColor: Int, Codable {
 }
 
 class Game: ObservableObject {
-    @Published var turn: Int = 1
     @Published var redPlayer: Player
     @Published var bluePlayer: Player
-//    @Published var redBoard: [MinionInPlay]
-//    @Published var blueBoard: [MinionInPlay]
     @Published var board: Board
+    @Published var turn: Int = 1
+    @Published var activePlayerColor: PlayerColor
     
     init(startingTurn: Int,
          redPlayer: Player = Player.red,
          bluePlayer: Player = Player.blue,
-//         redBoard: [MinionInPlay] = [MinionInPlay](),
-//         blueBoard: [MinionInPlay] = [MinionInPlay](),
          board: Board = Board()) {
-        self.turn = startingTurn
         self.redPlayer = redPlayer
         self.bluePlayer = bluePlayer
         self.board = board
+        self.turn = startingTurn
+        self.activePlayerColor = .red
     }
     
     static let sharedSample = Game(
         startingTurn: 1,
         redPlayer: Player(color: .red, hand: [Card](minionCollection[3...5]), mana: 10),
-//        redBoard: minionCollection[6...8].map { MinionInPlay($0.minion, color: .red, mustRest: false) },
-//        blueBoard: minionCollection[9...10].map { MinionInPlay($0.minion, color: .blue, mustRest: false) },
-        board: Board(red: minionCollection[6...8].map { MinionInPlay($0.minion, color: .red, mustRest: false) }, blue: [])
+        board: Board(red: minionCollection[6...8].map { MinionInPlay($0.minion, color: .red, mustRest: false) },
+                     blue: minionCollection[9...10].map { MinionInPlay($0.minion, color: .blue, mustRest: false) })
     )
     
     func nextTurn() {
         turn += 1
         
-        if redPlayer.maxMana < 10 {
-            redPlayer.maxMana += 1
-        }
-        
-        redPlayer.mana = redPlayer.maxMana
-        
-        for index in board.red.indices {
-            board[.red, index].attacksRemaining = 1
-        }
-        
-        if redPlayer.deck.count > 0 {
-            let drawnCard = redPlayer.deck.remove(at: 0)
-            redPlayer.hand.append(drawnCard)
+        switch activePlayerColor {
+        case .red:
+            takeNextTurn(player: &redPlayer)
+            activePlayerColor = .blue
+        case .blue:
+            takeNextTurn(player: &bluePlayer)
+            activePlayerColor = .red
         }
     }
     
-    func playCard(_ card: Card) {
-        playMinion(card, position: nil)
+    private func takeNextTurn(player: inout Player) {
+        if player.maxMana < 10 {
+            player.maxMana += 1
+        }
+        
+        player.mana = player.maxMana
+        
+        for index in board[player.color].indices {
+            board[player.color, index].attacksRemaining = 1
+        }
+        
+        if player.deck.count > 0 {
+            let drawnCard = player.deck.removeFirst()
+            player.hand.append(drawnCard)
+        }
     }
+    
+//    func playCard(_ card: Card) {
+//        tryPlayMinion(card, position: nil)
+//    }
     
     func playMinion(_ card: Card, position: Int?) {
-        if let index = redPlayer.hand.firstIndex(where: { card.id == $0.id }), card.cost <= redPlayer.mana {
-            let minion = MinionInPlay(card.minion, color: .red)
-            redPlayer.mana -= card.cost
-            redPlayer.hand.remove(at: index)
+        switch activePlayerColor {
+        case .red:
+            playMinion(for: &redPlayer, card: card, position: position)
+        case .blue:
+            playMinion(for: &bluePlayer, card: card, position: position)
+        }
+    }
+    
+    private func playMinion(for player: inout Player, card: Card, position: Int?) {
+        guard let handIndex = player.hand.firstIndex(where: { card.id == $0.id }) else {
+            return
+        }
+        
+        if card.cost <= player.mana {
+            let minion = MinionInPlay(card.minion, color: player.color)
+            player.mana -= card.cost
+            player.hand.remove(at: handIndex)
             
-            if let index = position {
-                board.red.insert(minion, at: index < board.red.endIndex ? index : board.red.endIndex)
+            if let boardSlot = position, boardSlot < board[player.color].endIndex {
+                board[player.color].insert(minion, at: boardSlot)
             } else {
-                board.red.insert(minion, at: board.red.endIndex)
+                board[player.color].insert(minion, at: board.red.endIndex)
             }
         }
     }
     
     func tryCombat(_ attacker: MinionInPlay, attacking defender: MinionInPlay) {
+        if attacker.color != activePlayerColor {
+            return
+        }
+        
         if attacker.health.status == .dead || defender.health.status == .dead {
+            return
+        }
+        
+        if attacker.color == defender.color {
+            print("Allied minions cannot fight")
             return
         }
         

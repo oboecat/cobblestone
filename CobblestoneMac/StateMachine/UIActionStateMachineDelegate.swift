@@ -92,9 +92,13 @@ class ViewModel: ObservableObject, UIActionStateMachineDelegate {
     func selectMinionInBattlefield(minion: MinionInPlay) {
         switch state {
         case .idle:
-            stateMachine.enter(state: .minionSelected(minion: minion))
+            if game.activePlayerColor == minion.color {
+                stateMachine.enter(state: .minionSelected(minion: minion))
+            }
         case .minionSelected(let attacker):
-            stateMachine.enter(state: .targetSelected(target: minion, attacker: attacker))
+            if game.activePlayerColor != minion.color {
+                stateMachine.enter(state: .targetSelected(target: minion, attacker: attacker))
+            }
         default:
             return
         }
@@ -122,6 +126,10 @@ class ViewModel: ObservableObject, UIActionStateMachineDelegate {
     
     func cancelPlayerAction() {
         stateMachine.enter(state: .idle)
+    }
+    
+    func endTurn() {
+        game.nextTurn()
     }
     
     func stateDidChange(state: UIActionState) {

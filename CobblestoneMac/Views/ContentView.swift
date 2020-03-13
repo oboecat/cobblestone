@@ -13,13 +13,29 @@ struct ContentView: View {
     @EnvironmentObject var model: ViewModel
 
     var body: some View {
-        VStack {
-            HStack {
-                CancelButtonView()
-                ConfirmButtonView()
+        HStack {
+            if game.activePlayerColor == .red {
+                VStack {
+                    OpponentHandView(numberOfCards: game.bluePlayer.hand.count)
+                    SimpleBoardView(friendlyBoard: game.board.red, opposingBoard: game.board.blue)
+                    HStack {
+                        CancelButtonView()
+                        ConfirmButtonView()
+                    }
+                    HandView(hand: game.redPlayer.hand)
+                }
+            } else {
+                VStack {
+                    OpponentHandView(numberOfCards: game.redPlayer.hand.count)
+                    SimpleBoardView(friendlyBoard: game.board.blue, opposingBoard: game.board.red)
+                    HStack {
+                        CancelButtonView()
+                        ConfirmButtonView()
+                    }
+                    HandView(hand: game.bluePlayer.hand)
+                }
             }
-            SimpleBoardView(board: game.board.red)
-            HandView(hand: game.redPlayer.hand)
+            TurnButtonView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
