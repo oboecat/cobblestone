@@ -35,6 +35,7 @@ enum UIActionState {
     case minionSelected(minion: MinionInPlay)
     case positionSelected(position: Int, minionCard: Card)
     case targetSelected(target: MinionInPlay, attacker: MinionInPlay)
+    case endTurnPrepared
     case confirm(action: PlayerAction)
 
     func description() -> String {
@@ -48,7 +49,9 @@ enum UIActionState {
         case .positionSelected(let position, let minionCard):
             return "Selected board slot \(position) to play \(minionCard.name)"
         case .targetSelected(let target, let attacker):
-            return "selected \(attacker.name) to attack \(target.name)"
+            return "Selected \(attacker.name) to attack \(target.name)"
+        case .endTurnPrepared:
+            return "Preparing to end the turn"
         case .confirm:
             return "Confirmed"
         }
@@ -119,6 +122,8 @@ class ViewModel: ObservableObject, UIActionStateMachineDelegate {
             stateMachine.enter(state: .confirm(action: .combat(attacker: attacker, target: target)))
         case .positionSelected(let position, let minionCard):
             stateMachine.enter(state: .confirm(action: .playMinion(minionCard: minionCard, position: position)))
+        case .endTurnPrepared:
+            stateMachine.enter(state: .confirm(action: .endTurn))
         default:
             print("complete action first")
         }
@@ -129,7 +134,7 @@ class ViewModel: ObservableObject, UIActionStateMachineDelegate {
     }
     
     func endTurn() {
-        game.nextTurn()
+        stateMachine.enter(state: .endTurnPrepared)
     }
     
     func stateDidChange(state: UIActionState) {
@@ -152,6 +157,8 @@ class ViewModel: ObservableObject, UIActionStateMachineDelegate {
             game.tryCombat(attacker, attacking: target)
         case .playMinion(let minionCard, let position):
             game.playMinion(minionCard, position: position)
+        case .endTurn:
+            game.nextTurn()
         default:
             break
         }

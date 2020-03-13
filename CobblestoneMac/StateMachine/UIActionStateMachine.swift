@@ -23,6 +23,10 @@ class IdleState: GKState {
         if stateClass is MinionSelectedState.Type {
             return true
         }
+        
+        if stateClass is EndTurnPreparedState.Type {
+            return true
+        }
 
         return false
     }
@@ -124,6 +128,29 @@ class TargetSelectedState: GKState {
     }
 }
 
+class EndTurnPreparedState: GKState {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+        if stateClass is IdleState.Type {
+            return true
+        }
+        
+        if stateClass is ConfirmState.Type {
+            return true
+        }
+        return false
+    }
+    
+    override func didEnter(from previousState: GKState?) {
+        // nothing
+    }
+    
+    override func willExit(to nextState: GKState) {
+        if let confirmState = nextState as? ConfirmState {
+            confirmState.action = PlayerAction.endTurn
+        }
+    }
+}
+
 class ConfirmState: GKState {
     var action: PlayerAction?
     
@@ -155,6 +182,7 @@ class UIActionStateMachine {
             MinionSelectedState(),
             PositionSelectedState(),
             TargetSelectedState(),
+            EndTurnPreparedState(),
             ConfirmState()
         ])
         
@@ -198,6 +226,10 @@ class UIActionStateMachine {
             nextState.target = target
             stateMachine.enter(TargetSelectedState.self)
             self.uiDelegate.stateDidChange(state: .targetSelected(target: target, attacker: attacker))
+            
+        case .endTurnPrepared:
+            if !stateMachine.enter(EndTurnPreparedState.self) { return }
+            self.uiDelegate.stateDidChange(state: .endTurnPrepared)
             
         case .confirm:
             guard let nextState = validatedNextState(ConfirmState.self) else { return }
