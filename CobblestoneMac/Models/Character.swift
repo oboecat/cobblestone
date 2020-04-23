@@ -10,7 +10,11 @@ import Foundation
 
 @propertyWrapper
 struct NonNegative {
-    private var number: Int = 0
+    private var number: Int
+    
+    init() {
+        self.number = 0
+    }
     
     var wrappedValue: Int {
         get { return number }
@@ -23,8 +27,8 @@ struct Attack {
     @NonNegative var base: Int
     
     init(_ value: Int) {
-        current = value
-        base = value
+        self.current = value
+        self.base = value
     }
     
     mutating func set(to value: Int) {
@@ -36,31 +40,15 @@ struct Attack {
     }
 }
 
-struct Health {
-    enum Status {
-        case alive
-        case dead
-    }
-    
-    var current: Int {
-        willSet(newValue) {
-            if newValue <= 0 {
-                status = .dead
-                print("bleh! dead")
-            } else {
-                status = .alive
-            }
-        }
-    }
+struct Health: Codable {
+    var current: Int
     var max: Int
     var base: Int
-    var status: Status
     
     init(_ value: Int) {
         self.current = value
         self.max = value
         self.base = value
-        self.status = value > 0 ? .alive : .dead
     }
     
     mutating func damage(by value: Int) {
@@ -81,9 +69,21 @@ struct Health {
         current += value
     }
     
-    mutating func unbuff(by value: Int) {
+    mutating func debuff(by value: Int) {
         max -= value
         current = min(current, max)
+    }
+    
+    func isAlive() -> Bool {
+        return current > 0
+    }
+}
+
+extension Health {
+    enum CodingKeys: String, CodingKey {
+        case current = "_current"
+        case max = "_max"
+        case base = "_base"
     }
 }
 
@@ -107,7 +107,7 @@ class Character {
         if dHealth > 0 {
             health.buff(by: dHealth)
         } else {
-            health.unbuff(by: -dHealth)
+            health.debuff(by: -dHealth)
         }
     }
     

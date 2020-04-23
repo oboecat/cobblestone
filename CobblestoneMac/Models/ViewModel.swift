@@ -17,15 +17,42 @@ enum PlayerAction {
     
     func description() -> String {
         switch self {
-        case .combat(let attacker, let target):
-            return "\(attacker.name) attacking \(target.name)"
         case .playMinion(let minionCard, let position):
             return "Playing \(minionCard.name) to board slot \(position)"
+        case .combat(let attacker, let target):
+            return "\(attacker.name) attacking \(target.name)"
         case .endTurn:
             return "Ending turn"
         case .concede:
             return "Conceding"
         }
+    }
+    
+    func toAction() -> Action {
+        switch self {
+        case .playMinion(let minionCard, let position):
+            return Action(name: "playMinion",
+                          params: ["\(minionCard.id)", "\(position)"])
+        case .combat(let attacker, let target):
+            return Action(name: "combat",
+                          params: ["\(attacker.id)", "\(target.id)"])
+        case .endTurn:
+            return Action(name: "endTurn")
+        case .concede:
+            return Action(name: "concede")
+        }
+    }
+}
+
+struct Action: Codable {
+    let name: String
+    let params: [String]?
+}
+
+extension Action {
+    init(name: String) {
+        self.name = name
+        self.params = nil
     }
 }
 
@@ -43,7 +70,7 @@ enum UIActionState {
         case .idle:
             return "Ready for action!"
         case .cardSelected(let card):
-            return "Selected card \(card.name)"
+            return "Selected card \(card.id)"
         case .minionSelected(let minion):
             return "Selected minion \(minion.name)"
         case .positionSelected(let position, let minionCard):
@@ -58,25 +85,14 @@ enum UIActionState {
     }
 }
 
-//struct CombatAction {
-//    let attacker: MinionInPlay
-//    let target: MinionInPlay
-//}
-//
-//struct PlayMinionAction {
-//    let player: Player
-//    let minionCard: Card
-//    let position: Int
-//}
-
 protocol UIActionStateMachineDelegate: AnyObject {
     func stateDidChange(state: UIActionState)
 }
 
 class ViewModel: ObservableObject, UIActionStateMachineDelegate {
     @Published var state: UIActionState = .idle
-    private var stateMachine: UIActionStateMachine
     private var game: Game
+    private var stateMachine: UIActionStateMachine
     
     init(game: Game) {
         self.game = game
@@ -95,11 +111,11 @@ class ViewModel: ObservableObject, UIActionStateMachineDelegate {
     func selectMinionInBattlefield(minion: MinionInPlay) {
         switch state {
         case .idle:
-            if game.activePlayerColor == minion.color {
+            if game.state.activePlayerColor == minion.color {
                 stateMachine.enter(state: .minionSelected(minion: minion))
             }
         case .minionSelected(let attacker):
-            if game.activePlayerColor != minion.color {
+            if game.state.activePlayerColor != minion.color {
                 stateMachine.enter(state: .targetSelected(target: minion, attacker: attacker))
             }
         default:

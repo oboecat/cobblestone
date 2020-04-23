@@ -8,7 +8,11 @@
 
 import Foundation
 
-struct Player {
+enum PlayerColor: Int, Codable {
+    case red, blue
+}
+
+struct Player: Codable {
     let color: PlayerColor
     var hand: [Card]
     var deck: [Card]

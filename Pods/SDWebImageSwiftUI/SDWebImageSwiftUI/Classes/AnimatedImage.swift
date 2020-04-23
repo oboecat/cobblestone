@@ -11,7 +11,7 @@ import SDWebImage
 
 #if os(iOS) || os(tvOS) || os(macOS)
 
-/// A coordinator object used for `AnimatedImage`native view  bridge for UIKit/AppKit/WatchKit.
+/// A coordinator object used for `AnimatedImage`native view  bridge for UIKit/AppKit.
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public final class AnimatedImageCoordinator: NSObject {
     
@@ -35,6 +35,14 @@ final class AnimatedImageModel : ObservableObject {
     /// Data image
     @Published var data: Data?
     @Published var scale: CGFloat = 1
+}
+
+/// Loading Binding Object, only properties in this object can support changes from user with @State and refresh
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+final class AnimatedLoadingModel : ObservableObject, IndicatorReportable {
+    @Published var image: PlatformImage? // loaded image, note when progressive loading, this will published multiple times with different partial image
+    @Published var isLoading: Bool = false // whether network is loading or cache is querying, should only be used for indicator binding
+    @Published var progress: Double = 0 // network progress, should only be used for indicator binding
 }
 
 /// Completion Handler Binding Object, supports dynamic @State changes
@@ -66,11 +74,11 @@ final class AnimatedImageLayout : ObservableObject {
 final class AnimatedImageConfiguration: ObservableObject {
     var incrementalLoad: Bool?
     var maxBufferSize: UInt?
-    var customLoopCount: Int?
+    var customLoopCount: UInt?
     var runLoopMode: RunLoop.Mode?
     var pausable: Bool?
     var purgeable: Bool?
-    var playBackRate: Double?
+    var playbackRate: Double?
     // These configurations only useful for web image loading
     var indicator: SDWebImageIndicator?
     var transition: SDWebImageTransition?
@@ -81,6 +89,7 @@ final class AnimatedImageConfiguration: ObservableObject {
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public struct AnimatedImage : PlatformViewRepresentable {
     @ObservedObject var imageModel = AnimatedImageModel()
+    @ObservedObject var imageLoading = AnimatedLoadingModel()
     @ObservedObject var imageHandler = AnimatedImageHandler()
     @ObservedObject var imageLayout = AnimatedImageLayout()
     @ObservedObject var imageConfiguration = AnimatedImageConfiguration()
@@ -193,10 +202,31 @@ public struct AnimatedImage : PlatformViewRepresentable {
         if currentOperation != nil {
             return
         }
+        self.imageLoading.isLoading = true
         view.wrapped.sd_setImage(with: imageModel.url, placeholderImage: imageConfiguration.placeholder, options: imageModel.webOptions, context: imageModel.webContext, progress: { (receivedSize, expectedSize, _) in
+            let progress: Double
+            if (expectedSize > 0) {
+                progress = Double(receivedSize) / Double(expectedSize)
+            } else {
+                progress = 0
+            }
+            DispatchQueue.main.async {
+                self.imageLoading.progress = progress
+            }
             self.imageHandler.progressBlock?(receivedSize, expectedSize)
         }) { (image, error, cacheType, _) in
-            self.layoutView(view, context: context)
+            // This is a hack because of Xcode 11.3 bug, the @Published does not trigger another `updateUIView` call
+            // Here I have to use UIKit/AppKit API to triger the same effect (the window change implicitly cause re-render)
+            if let hostingView = AnimatedImage.findHostingView(from: view) {
+                #if os(macOS)
+                hostingView.viewDidMoveToWindow()
+                #else
+                hostingView.didMoveToWindow()
+                #endif
+            }
+            self.imageLoading.image = image
+            self.imageLoading.isLoading = false
+            self.imageLoading.progress = 1
             if let image = image {
                 self.imageHandler.successBlock?(image, cacheType)
             } else {
@@ -314,6 +344,11 @@ public struct AnimatedImage : PlatformViewRepresentable {
         view.wrapped.contentMode = contentMode
         #endif
         
+        // Resizable
+        if let _ = imageLayout.resizingMode {
+            view.resizable = true
+        }
+        
         // Animated Image does not support resizing mode and rendering mode
         if let image = view.wrapped.image, !image.sd_isAnimated, !image.conforms(to: SDAnimatedImageProtocol.self) {
             var image = image
@@ -415,7 +450,7 @@ public struct AnimatedImage : PlatformViewRepresentable {
         // CustomLoopCount
         if let customLoopCount = imageConfiguration.customLoopCount {
             view.wrapped.shouldCustomLoopCount = true
-            view.wrapped.animationRepeatCount = customLoopCount
+            view.wrapped.animationRepeatCount = Int(customLoopCount)
         } else {
             // disable custom loop count
             view.wrapped.shouldCustomLoopCount = false
@@ -443,11 +478,22 @@ public struct AnimatedImage : PlatformViewRepresentable {
         }
         
         // Playback Rate
-        if let playBackRate = imageConfiguration.playBackRate {
-            view.wrapped.playbackRate = playBackRate
+        if let playbackRate = imageConfiguration.playbackRate {
+            view.wrapped.playbackRate = playbackRate
         } else {
             view.wrapped.playbackRate = 1.0
         }
+    }
+    
+    private static func findHostingView(from entry: PlatformView) -> PlatformView? {
+        var superview = entry.superview
+        while let s = superview {
+            if NSStringFromClass(type(of: s)).contains("HostingView") {
+                return s
+            }
+            superview = s.superview
+        }
+        return nil
     }
 }
 
@@ -557,7 +603,7 @@ extension AnimatedImage {
     /// Total loop count for animated image rendering. Defaults to nil.
     /// - Note: Pass nil to disable customization, use the image itself loop count (`animatedImageLoopCount`) instead
     /// - Parameter loopCount: The animation loop count
-    public func customLoopCount(_ loopCount: Int?) -> AnimatedImage {
+    public func customLoopCount(_ loopCount: UInt?) -> AnimatedImage {
         self.imageConfiguration.customLoopCount = loopCount
         return self
     }
@@ -613,9 +659,9 @@ extension AnimatedImage {
     /// `0.0-1.0` means the slow speed.
     /// `> 1.0` means the fast speed.
     /// `< 0.0` is not supported currently and stop animation. (may support reverse playback in the future)
-    /// - Parameter playBackRate: The animation playback rate.
-    public func playBackRate(_ playBackRate: Double) -> AnimatedImage {
-        self.imageConfiguration.playBackRate = playBackRate
+    /// - Parameter playbackRate: The animation playback rate.
+    public func playbackRate(_ playbackRate: Double) -> AnimatedImage {
+        self.imageConfiguration.playbackRate = playbackRate
         return self
     }
 }
@@ -680,7 +726,7 @@ extension AnimatedImage {
     }
 }
 
-// Web Image convenience
+// Web Image convenience, based on UIKit/AppKit API
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 extension AnimatedImage {
     
@@ -705,6 +751,23 @@ extension AnimatedImage {
     public func transition(_ transition: SDWebImageTransition?) -> AnimatedImage {
         self.imageConfiguration.transition = transition
         return self
+    }
+}
+
+// Indicator
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension AnimatedImage {
+    
+    /// Associate a indicator when loading image with url
+    /// - Parameter indicator: The indicator type, see `Indicator`
+    public func indicator<T>(_ indicator: Indicator<T>) -> some View where T : View {
+        return self.modifier(IndicatorViewModifier(reporter: self.imageLoading, indicator: indicator))
+    }
+    
+    /// Associate a indicator when loading image with url, convenient method with block
+    /// - Parameter content: A view that describes the indicator.
+    public func indicator<T>(@ViewBuilder content: @escaping (_ isAnimating: Binding<Bool>, _ progress: Binding<Double>) -> T) -> some View where T : View {
+        return indicator(Indicator(content: content))
     }
 }
 

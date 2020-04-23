@@ -22,10 +22,13 @@
 		2660960C2374D60C00740F52 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2660960B2374D60C00740F52 /* Data.swift */; };
 		2660960F2374D62400740F52 /* minions.json in Resources */ = {isa = PBXBuildFile; fileRef = 2660960E2374D62400740F52 /* minions.json */; };
 		267B0D3C23872A6C009D9DF2 /* DraggableViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267B0D3B23872A6C009D9DF2 /* DraggableViewModifier.swift */; };
-		267FB5AB23888100009BE2E5 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267FB5AA23888100009BE2E5 /* Game.swift */; };
+		267FB5AB23888100009BE2E5 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267FB5AA23888100009BE2E5 /* GameState.swift */; };
 		268E79282387344600A10CBF /* DropZoneViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 268E79272387344600A10CBF /* DropZoneViewModifier.swift */; };
 		26E3B708238499E3005D4EE6 /* DragAndDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26E3B707238499E3005D4EE6 /* DragAndDrop.swift */; };
-		4B79CDBE23ECAF630092BC33 /* UIActionStateMachineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79CDBD23ECAF630092BC33 /* UIActionStateMachineDelegate.swift */; };
+		3CE3760AFD095A1AC43A0B6E /* Pods_CobblestoneMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C12FB46807E8649AFBAE7BD4 /* Pods_CobblestoneMac.framework */; };
+		4B29FBE1243BCF9900C5A76E /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B29FBE0243BCF9900C5A76E /* GameService.swift */; };
+		4B29FBE3243D2E3700C5A76E /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B29FBE2243D2E3700C5A76E /* Game.swift */; };
+		4B79CDBE23ECAF630092BC33 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79CDBD23ECAF630092BC33 /* ViewModel.swift */; };
 		4B7B1F0F24130BBC00CD795D /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F0E24130BBC00CD795D /* Board.swift */; };
 		4B7B1F1C241983F100CD795D /* CardParameterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F11241983F100CD795D /* CardParameterView.swift */; };
 		4B7B1F1D241983F100CD795D /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F12241983F100CD795D /* BoardView.swift */; };
@@ -36,22 +39,27 @@
 		4B7B1F22241983F100CD795D /* ConfirmButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F17241983F100CD795D /* ConfirmButtonView.swift */; };
 		4B7B1F23241983F100CD795D /* CancelButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F18241983F100CD795D /* CancelButtonView.swift */; };
 		4B7B1F24241983F100CD795D /* SimpleBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F19241983F100CD795D /* SimpleBoardView.swift */; };
-		4B7B1F25241983F100CD795D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F1A241983F100CD795D /* ContentView.swift */; };
 		4B7B1F26241983F100CD795D /* MinionPortraitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F1B241983F100CD795D /* MinionPortraitView.swift */; };
 		4B7B1F282419A1B100CD795D /* HandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F272419A1B100CD795D /* HandView.swift */; };
 		4B7B1F2A241B001200CD795D /* TurnButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F29241B001200CD795D /* TurnButtonView.swift */; };
 		4B7B1F2C241B039A00CD795D /* OpponentHandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F2B241B039A00CD795D /* OpponentHandView.swift */; };
 		4B7B1F2E241B04D600CD795D /* CardBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F2D241B04D600CD795D /* CardBackView.swift */; };
+		4B7B2158242178C800CD795D /* Auth0.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4B7B2157242178C800CD795D /* Auth0.plist */; };
+		4B7E1EE7244A63720067DB6E /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7E1EE6244A63720067DB6E /* LoadingView.swift */; };
+		4B7E1EE9244A650D0067DB6E /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7E1EE8244A650D0067DB6E /* GameView.swift */; };
+		4B7E1EEB2450FA2F0067DB6E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7E1EEA2450FA2F0067DB6E /* HomeView.swift */; };
+		4B7E1EED2450FDDE0067DB6E /* LoginButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7E1EEC2450FDDE0067DB6E /* LoginButtonView.swift */; };
+		4B7E1EEF2450FE840067DB6E /* LogoutButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7E1EEE2450FE840067DB6E /* LogoutButtonView.swift */; };
+		4B7E1EF124510A420067DB6E /* PlayButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7E1EF024510A420067DB6E /* PlayButtonView.swift */; };
 		4B8C0CD923E11AF5000D8B40 /* UIActionStateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8C0CD823E11AF5000D8B40 /* UIActionStateMachine.swift */; };
 		4BAD3C1A23DF835F003EE5AD /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAD3C1923DF835F003EE5AD /* Player.swift */; };
 		4BE0712623DF99DF000C2933 /* sample_games.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BE0712523DF99DF000C2933 /* sample_games.json */; };
 		4BE0712923DFBA2C000C2933 /* MinionMash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE0712823DFBA2C000C2933 /* MinionMash.swift */; };
-		D533E2C109246E9743AF4B3E /* Pods_CobblestoneMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23F70D48B781D7F5A1B828B3 /* Pods_CobblestoneMac.framework */; };
+		4BE616742447B8E000E20B16 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BE616732447B8E000E20B16 /* LoginView.swift */; };
+		4BFD0F3F244807E300950348 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFD0F3E244807E300950348 /* AppViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0D8E08CDEAE7189340994504 /* Pods-CobblestoneMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CobblestoneMac.release.xcconfig"; path = "Target Support Files/Pods-CobblestoneMac/Pods-CobblestoneMac.release.xcconfig"; sourceTree = "<group>"; };
-		23F70D48B781D7F5A1B828B3 /* Pods_CobblestoneMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CobblestoneMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2612E50F2391C18700288C9B /* MinionDropZoneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinionDropZoneDelegate.swift; sourceTree = "<group>"; };
 		2612E5112391C62B00288C9B /* DropZoneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropZoneDelegate.swift; sourceTree = "<group>"; };
 		2642FB9323A423E4007C7D70 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
@@ -70,12 +78,14 @@
 		2660960B2374D60C00740F52 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		2660960E2374D62400740F52 /* minions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = minions.json; sourceTree = "<group>"; };
 		267B0D3B23872A6C009D9DF2 /* DraggableViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableViewModifier.swift; sourceTree = "<group>"; };
-		267FB5AA23888100009BE2E5 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		267FB5AA23888100009BE2E5 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		2688020A23CD3CDB0004F583 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		268E79272387344600A10CBF /* DropZoneViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropZoneViewModifier.swift; sourceTree = "<group>"; };
 		26E3B707238499E3005D4EE6 /* DragAndDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDrop.swift; sourceTree = "<group>"; };
-		47C0BCAA45CAB60A9CC46CAF /* Pods-CobblestoneMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CobblestoneMac.debug.xcconfig"; path = "Target Support Files/Pods-CobblestoneMac/Pods-CobblestoneMac.debug.xcconfig"; sourceTree = "<group>"; };
-		4B79CDBD23ECAF630092BC33 /* UIActionStateMachineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActionStateMachineDelegate.swift; sourceTree = "<group>"; };
+		4561D31AB4B470EFC922C457 /* Pods-CobblestoneMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CobblestoneMac.debug.xcconfig"; path = "Target Support Files/Pods-CobblestoneMac/Pods-CobblestoneMac.debug.xcconfig"; sourceTree = "<group>"; };
+		4B29FBE0243BCF9900C5A76E /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
+		4B29FBE2243D2E3700C5A76E /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		4B79CDBD23ECAF630092BC33 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		4B7B1F0E24130BBC00CD795D /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		4B7B1F11241983F100CD795D /* CardParameterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardParameterView.swift; sourceTree = "<group>"; };
 		4B7B1F12241983F100CD795D /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
@@ -86,16 +96,26 @@
 		4B7B1F17241983F100CD795D /* ConfirmButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmButtonView.swift; sourceTree = "<group>"; };
 		4B7B1F18241983F100CD795D /* CancelButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButtonView.swift; sourceTree = "<group>"; };
 		4B7B1F19241983F100CD795D /* SimpleBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleBoardView.swift; sourceTree = "<group>"; };
-		4B7B1F1A241983F100CD795D /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4B7B1F1B241983F100CD795D /* MinionPortraitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinionPortraitView.swift; sourceTree = "<group>"; };
 		4B7B1F272419A1B100CD795D /* HandView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandView.swift; sourceTree = "<group>"; };
 		4B7B1F29241B001200CD795D /* TurnButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TurnButtonView.swift; sourceTree = "<group>"; };
 		4B7B1F2B241B039A00CD795D /* OpponentHandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpponentHandView.swift; sourceTree = "<group>"; };
 		4B7B1F2D241B04D600CD795D /* CardBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackView.swift; sourceTree = "<group>"; };
+		4B7B2157242178C800CD795D /* Auth0.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Auth0.plist; sourceTree = "<group>"; };
+		4B7E1EE6244A63720067DB6E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		4B7E1EE8244A650D0067DB6E /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		4B7E1EEA2450FA2F0067DB6E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		4B7E1EEC2450FDDE0067DB6E /* LoginButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButtonView.swift; sourceTree = "<group>"; };
+		4B7E1EEE2450FE840067DB6E /* LogoutButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutButtonView.swift; sourceTree = "<group>"; };
+		4B7E1EF024510A420067DB6E /* PlayButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayButtonView.swift; sourceTree = "<group>"; };
 		4B8C0CD823E11AF5000D8B40 /* UIActionStateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIActionStateMachine.swift; sourceTree = "<group>"; };
 		4BAD3C1923DF835F003EE5AD /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		4BE0712523DF99DF000C2933 /* sample_games.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_games.json; sourceTree = "<group>"; };
 		4BE0712823DFBA2C000C2933 /* MinionMash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinionMash.swift; sourceTree = "<group>"; };
+		4BE616732447B8E000E20B16 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4BFD0F3E244807E300950348 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		C12FB46807E8649AFBAE7BD4 /* Pods_CobblestoneMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CobblestoneMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC78807CBAE2AE513EFA340A /* Pods-CobblestoneMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CobblestoneMac.release.xcconfig"; path = "Target Support Files/Pods-CobblestoneMac/Pods-CobblestoneMac.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D533E2C109246E9743AF4B3E /* Pods_CobblestoneMac.framework in Frameworks */,
+				3CE3760AFD095A1AC43A0B6E /* Pods_CobblestoneMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,7 +136,7 @@
 				266095F02374CA3B00740F52 /* CobblestoneMac */,
 				266095EF2374CA3B00740F52 /* Products */,
 				63CCAEF26865573DEA8290F9 /* Pods */,
-				996D87F013CAEA6600E0A34D /* Frameworks */,
+				F551702EAD4092FD284596C1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +157,7 @@
 				4B7B1F10241983F100CD795D /* Views */,
 				4BA9CB3A23E10C5A000DC05A /* StateMachine */,
 				4BE0712723DFBA14000C2933 /* Test */,
+				4B29FBE0243BCF9900C5A76E /* GameService.swift */,
 				267B0D3B23872A6C009D9DF2 /* DraggableViewModifier.swift */,
 				268E79272387344600A10CBF /* DropZoneViewModifier.swift */,
 				2612E5112391C62B00288C9B /* DropZoneDelegate.swift */,
@@ -145,6 +166,7 @@
 				2660960D2374D61000740F52 /* Resources */,
 				266095FA2374CA4100740F52 /* Main.storyboard */,
 				266095FD2374CA4100740F52 /* Info.plist */,
+				4B7B2157242178C800CD795D /* Auth0.plist */,
 				266095FE2374CA4100740F52 /* CobblestoneMac.entitlements */,
 				2688020A23CD3CDB0004F583 /* README.md */,
 				266095F72374CA4100740F52 /* Preview Content */,
@@ -163,16 +185,19 @@
 		266096082374D5F600740F52 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4BFD0F3E244807E300950348 /* AppViewModel.swift */,
+				4B79CDBD23ECAF630092BC33 /* ViewModel.swift */,
+				4B29FBE2243D2E3700C5A76E /* Game.swift */,
+				267FB5AA23888100009BE2E5 /* GameState.swift */,
 				2660960B2374D60C00740F52 /* Data.swift */,
 				26E3B707238499E3005D4EE6 /* DragAndDrop.swift */,
-				267FB5AA23888100009BE2E5 /* Game.swift */,
 				4B7B1F0E24130BBC00CD795D /* Board.swift */,
 				4BAD3C1923DF835F003EE5AD /* Player.swift */,
-				265C414423AAC742005E7E59 /* Effect.swift */,
 				2642FB9323A423E4007C7D70 /* Character.swift */,
-				2642FB9523A44055007C7D70 /* Hero.swift */,
 				2642FB9723A44455007C7D70 /* Minion.swift */,
 				266096092374D60600740F52 /* Card.swift */,
+				2642FB9523A44055007C7D70 /* Hero.swift */,
+				265C414423AAC742005E7E59 /* Effect.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -189,7 +214,8 @@
 		4B7B1F10241983F100CD795D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4B7B1F1A241983F100CD795D /* ContentView.swift */,
+				4B7E1EEA2450FA2F0067DB6E /* HomeView.swift */,
+				4B7E1EE8244A650D0067DB6E /* GameView.swift */,
 				4B7B1F2B241B039A00CD795D /* OpponentHandView.swift */,
 				4B7B1F19241983F100CD795D /* SimpleBoardView.swift */,
 				4B7B1F12241983F100CD795D /* BoardView.swift */,
@@ -204,6 +230,11 @@
 				4B7B1F29241B001200CD795D /* TurnButtonView.swift */,
 				4B7B1F17241983F100CD795D /* ConfirmButtonView.swift */,
 				4B7B1F18241983F100CD795D /* CancelButtonView.swift */,
+				4BE616732447B8E000E20B16 /* LoginView.swift */,
+				4B7E1EEC2450FDDE0067DB6E /* LoginButtonView.swift */,
+				4B7E1EEE2450FE840067DB6E /* LogoutButtonView.swift */,
+				4B7E1EF024510A420067DB6E /* PlayButtonView.swift */,
+				4B7E1EE6244A63720067DB6E /* LoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -212,7 +243,6 @@
 			isa = PBXGroup;
 			children = (
 				4B8C0CD823E11AF5000D8B40 /* UIActionStateMachine.swift */,
-				4B79CDBD23ECAF630092BC33 /* UIActionStateMachineDelegate.swift */,
 			);
 			path = StateMachine;
 			sourceTree = "<group>";
@@ -228,16 +258,16 @@
 		63CCAEF26865573DEA8290F9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				47C0BCAA45CAB60A9CC46CAF /* Pods-CobblestoneMac.debug.xcconfig */,
-				0D8E08CDEAE7189340994504 /* Pods-CobblestoneMac.release.xcconfig */,
+				4561D31AB4B470EFC922C457 /* Pods-CobblestoneMac.debug.xcconfig */,
+				EC78807CBAE2AE513EFA340A /* Pods-CobblestoneMac.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		996D87F013CAEA6600E0A34D /* Frameworks */ = {
+		F551702EAD4092FD284596C1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				23F70D48B781D7F5A1B828B3 /* Pods_CobblestoneMac.framework */,
+				C12FB46807E8649AFBAE7BD4 /* Pods_CobblestoneMac.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -249,19 +279,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 266096012374CA4100740F52 /* Build configuration list for PBXNativeTarget "CobblestoneMac" */;
 			buildPhases = (
-				6115435848691294B2462FA6 /* [CP] Check Pods Manifest.lock */,
+				817CD177484200F8B261B972 /* [CP] Check Pods Manifest.lock */,
 				266095EA2374CA3B00740F52 /* Sources */,
 				266095EB2374CA3B00740F52 /* Frameworks */,
 				266095EC2374CA3B00740F52 /* Resources */,
-				BDCBD83F1B095ABD17C6457E /* [CP] Embed Pods Frameworks */,
+				AC88291F1E4A0EB238506CAB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = CobblestoneMac;
-			packageProductDependencies = (
-			);
 			productName = CobblestoneMac;
 			productReference = 266095EE2374CA3B00740F52 /* CobblestoneMac.app */;
 			productType = "com.apple.product-type.application";
@@ -290,8 +318,6 @@
 				Base,
 			);
 			mainGroup = 266095E52374CA3B00740F52;
-			packageReferences = (
-			);
 			productRefGroup = 266095EF2374CA3B00740F52 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -307,6 +333,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				266095FC2374CA4100740F52 /* Main.storyboard in Resources */,
+				4B7B2158242178C800CD795D /* Auth0.plist in Resources */,
 				2660960F2374D62400740F52 /* minions.json in Resources */,
 				266095F92374CA4100740F52 /* Preview Assets.xcassets in Resources */,
 				266095F62374CA4100740F52 /* Assets.xcassets in Resources */,
@@ -317,7 +344,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6115435848691294B2462FA6 /* [CP] Check Pods Manifest.lock */ = {
+		817CD177484200F8B261B972 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -339,7 +366,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BDCBD83F1B095ABD17C6457E /* [CP] Embed Pods Frameworks */ = {
+		AC88291F1E4A0EB238506CAB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -364,38 +391,47 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B7B1F1D241983F100CD795D /* BoardView.swift in Sources */,
+				4B29FBE3243D2E3700C5A76E /* Game.swift in Sources */,
+				4BFD0F3F244807E300950348 /* AppViewModel.swift in Sources */,
 				4B7B1F24241983F100CD795D /* SimpleBoardView.swift in Sources */,
 				4BE0712923DFBA2C000C2933 /* MinionMash.swift in Sources */,
 				4B7B1F20241983F100CD795D /* MinionPlacementView.swift in Sources */,
 				4B7B1F0F24130BBC00CD795D /* Board.swift in Sources */,
 				265C414523AAC742005E7E59 /* Effect.swift in Sources */,
+				4B7E1EF124510A420067DB6E /* PlayButtonView.swift in Sources */,
 				2642FB9823A44455007C7D70 /* Minion.swift in Sources */,
 				4BAD3C1A23DF835F003EE5AD /* Player.swift in Sources */,
 				2660960C2374D60C00740F52 /* Data.swift in Sources */,
 				4B7B1F26241983F100CD795D /* MinionPortraitView.swift in Sources */,
+				4B7E1EED2450FDDE0067DB6E /* LoginButtonView.swift in Sources */,
 				267B0D3C23872A6C009D9DF2 /* DraggableViewModifier.swift in Sources */,
+				4B7E1EEB2450FA2F0067DB6E /* HomeView.swift in Sources */,
+				4BE616742447B8E000E20B16 /* LoginView.swift in Sources */,
 				26E3B708238499E3005D4EE6 /* DragAndDrop.swift in Sources */,
 				4B7B1F1C241983F100CD795D /* CardParameterView.swift in Sources */,
 				4B7B1F282419A1B100CD795D /* HandView.swift in Sources */,
+				4B7E1EE7244A63720067DB6E /* LoadingView.swift in Sources */,
 				2612E5102391C18700288C9B /* MinionDropZoneDelegate.swift in Sources */,
 				4B7B1F23241983F100CD795D /* CancelButtonView.swift in Sources */,
 				266095F42374CA3B00740F52 /* ContentView.swift in Sources */,
 				2660960A2374D60600740F52 /* Card.swift in Sources */,
 				4B7B1F2A241B001200CD795D /* TurnButtonView.swift in Sources */,
 				4B8C0CD923E11AF5000D8B40 /* UIActionStateMachine.swift in Sources */,
-				267FB5AB23888100009BE2E5 /* Game.swift in Sources */,
+				267FB5AB23888100009BE2E5 /* GameState.swift in Sources */,
+				4B29FBE1243BCF9900C5A76E /* GameService.swift in Sources */,
 				2642FB9623A44055007C7D70 /* Hero.swift in Sources */,
 				2612E5122391C62B00288C9B /* DropZoneDelegate.swift in Sources */,
-				4B79CDBE23ECAF630092BC33 /* UIActionStateMachineDelegate.swift in Sources */,
+				4B7E1EEF2450FE840067DB6E /* LogoutButtonView.swift in Sources */,
+				4B79CDBE23ECAF630092BC33 /* ViewModel.swift in Sources */,
 				4B7B1F1F241983F100CD795D /* CardInHandView.swift in Sources */,
 				4B7B1F21241983F100CD795D /* MinionInPlayView.swift in Sources */,
 				266095F22374CA3B00740F52 /* AppDelegate.swift in Sources */,
 				2642FB9423A423E4007C7D70 /* Character.swift in Sources */,
 				4B7B1F2C241B039A00CD795D /* OpponentHandView.swift in Sources */,
 				4B7B1F22241983F100CD795D /* ConfirmButtonView.swift in Sources */,
-				4B7B1F25241983F100CD795D /* ContentView.swift in Sources */,
 				4B7B1F1E241983F100CD795D /* CardView.swift in Sources */,
 				268E79282387344600A10CBF /* DropZoneViewModifier.swift in Sources */,
+				4B7E1EE9244A650D0067DB6E /* GameView.swift in Sources */,
 				4B7B1F2E241B04D600CD795D /* CardBackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,13 +565,14 @@
 		};
 		266096022374CA4100740F52 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47C0BCAA45CAB60A9CC46CAF /* Pods-CobblestoneMac.debug.xcconfig */;
+			baseConfigurationReference = 4561D31AB4B470EFC922C457 /* Pods-CobblestoneMac.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CobblestoneMac/CobblestoneMac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CobblestoneMac/Preview Content\"";
+				DEVELOPMENT_TEAM = 9AK3KERCDP;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CobblestoneMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -551,13 +588,14 @@
 		};
 		266096032374CA4100740F52 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D8E08CDEAE7189340994504 /* Pods-CobblestoneMac.release.xcconfig */;
+			baseConfigurationReference = EC78807CBAE2AE513EFA340A /* Pods-CobblestoneMac.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CobblestoneMac/CobblestoneMac.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"CobblestoneMac/Preview Content\"";
+				DEVELOPMENT_TEAM = 9AK3KERCDP;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CobblestoneMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

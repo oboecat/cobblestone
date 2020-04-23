@@ -9,10 +9,10 @@
 import Foundation
 import GameKit
 
-struct Action {
-    let source: AnyClass
-    let target: AnyClass
-}
+//struct Action {
+//    let source: AnyClass
+//    let target: AnyClass
+//}
 
 class IdleState: GKState {
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {

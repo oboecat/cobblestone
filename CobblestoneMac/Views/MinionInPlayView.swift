@@ -30,7 +30,7 @@ struct MinionInPlayView: View {
                     .foregroundColor(.orange)
                     .frame(width: 20, height: 20)
                     .overlay(Text(
-                        "\(self.minion.attack.current)"))
+                        "\(self.minion.attack)"))
                 Spacer()
                 Text(self.minion.name).lineLimit(1)
                 Spacer()

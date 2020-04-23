@@ -24,6 +24,7 @@ struct HandView: View {
                     CardInHandView(card: card)
                         .onTapGesture {
                             self.model.selectCardFromHand(card: card)
+                            self.model.selectBoardPosition(position: 0)
                         }
                     Text(card.name)
                 }
@@ -35,7 +36,7 @@ struct HandView: View {
 struct HandView_Previews: PreviewProvider {
     static var previews: some View {
         HandView(hand: [Card](minionCollection[0...1]))
-            .environmentObject(ViewModel(game: Game.sharedSample))
+//            .environmentObject(ViewModel(game: Game()))
 //            .environmentObject(DragAndDrop())
     }
 }

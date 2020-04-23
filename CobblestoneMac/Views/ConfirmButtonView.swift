@@ -23,6 +23,5 @@ struct ConfirmButtonView: View {
 struct ConfirmButtonView_Previews: PreviewProvider {
     static var previews: some View {
         ConfirmButtonView()
-            .environmentObject(ViewModel(game: Game.sharedSample))
     }
 }

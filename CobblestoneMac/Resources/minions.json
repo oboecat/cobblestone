@@ -1,5 +1,6 @@
 [
     {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
         "name": "River Crocolisk",
         "description": "A 2/3 minion",
         "cost": 2,
@@ -11,6 +12,7 @@
         }
     },
     {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
         "name": "Chillwind Yeti",
         "description": "A 4/5 minion",
         "cost": 4,
@@ -22,6 +24,7 @@
         }
     },
     {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
         "name": "Water Elemental",
         "description": "A 3/6 minion with Freeze",
         "cost": 4,
@@ -33,6 +36,7 @@
         }
     },
     {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
         "name": "Ragnaros the Firelord",
         "description": "DIE, INSECT!!",
         "cost": 8,
@@ -44,6 +48,7 @@
         }
     },
     {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
         "name": "Wisp",
         "description": "A 1/1 minion",
         "cost": 0,
@@ -55,6 +60,7 @@
         }
     },
     {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
         "name": "Bloodfen Raptor",
         "description": "A 3/2 minion",
         "cost": 2,
@@ -66,6 +72,7 @@
         }
     },
     {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
         "name": "Voidwalker",
         "description": "Why do you call?",
         "cost": 1,
@@ -78,6 +85,7 @@
         }
     },
     {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
         "name": "Acolyte of Pain",
         "description": "Whenever this minion takes damage, draw a card",
         "cost": 3,
@@ -89,6 +97,7 @@
         }
     },
     {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
         "name": "Jungle Panther",
         "description": "A 4/2 minion with stealth",
         "cost": 3,
@@ -101,6 +110,7 @@
         }
     },
     {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
         "name": "Huffer",
         "description": "Huffer, I choose you!",
         "cost": 3,
@@ -113,6 +123,7 @@
         }
     },
     {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
         "name": "Annoy-o-Tron",
         "description": "Hello! Hello!",
         "cost": 2,
@@ -122,6 +133,18 @@
             "attack": 1,
             "health": 2,
             "statuses": ["taunt", "divineShield"]
+        }
+    },
+    {
+        "id": "C44C9660-ECA3-4E83-9DF1-40DF031F1803",
+        "name": "Sylvanas Windrunner",
+        "description": "I have no time for games!",
+        "cost": 6,
+        "minion":
+        {
+            "name": "Sylvanas Windrunner",
+            "attack": 5,
+            "health": 5
         }
     }
 ]

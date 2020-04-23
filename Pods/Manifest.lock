@@ -1,26 +1,54 @@
 PODS:
-  - SDWebImage (5.5.2):
-    - SDWebImage/Core (= 5.5.2)
-  - SDWebImage/Core (5.5.2)
-  - SDWebImageSwiftUI (0.10.2):
+  - Alamofire (5.0.5)
+  - Auth0 (1.22.1):
+    - JWTDecode
+    - SimpleKeychain
+  - JWTDecode (2.4.1)
+  - RMJSONPatch (1.0.4)
+  - SDWebImage (5.6.1):
+    - SDWebImage/Core (= 5.6.1)
+  - SDWebImage/Core (5.6.1)
+  - SDWebImageSwiftUI (1.1.0):
     - SDWebImage (~> 5.3)
+  - SimpleKeychain (0.11.1)
   - SwiftState (6.0.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 5.0)
+  - Auth0 (~> 1.22)
+  - RMJSONPatch (from `https://github.com/raymccrae/swift-jsonpatch.git`)
   - SDWebImageSwiftUI
   - SwiftState (~> 6.0)
 
 SPEC REPOS:
   trunk:
+    - Alamofire
+    - Auth0
+    - JWTDecode
     - SDWebImage
     - SDWebImageSwiftUI
+    - SimpleKeychain
     - SwiftState
 
+EXTERNAL SOURCES:
+  RMJSONPatch:
+    :git: https://github.com/raymccrae/swift-jsonpatch.git
+
+CHECKOUT OPTIONS:
+  RMJSONPatch:
+    :commit: 65edda8a5a756985418e53968491f25d5dc4a217
+    :git: https://github.com/raymccrae/swift-jsonpatch.git
+
 SPEC CHECKSUMS:
-  SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
-  SDWebImageSwiftUI: 72c37ad29b7b79172362015090a10244096e61f0
+  Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
+  Auth0: c3dd0b6f9031e9cc38be2a6973f766f33ccbad83
+  JWTDecode: 4bd4da0cdf0f8154fd467fa48499f34ec057fb88
+  RMJSONPatch: 60d351ad27d164352f8ea6b055c07c976f1bd2d1
+  SDWebImage: 7edb9c3ea661e77a66661f7f044de8c1b55d1120
+  SDWebImageSwiftUI: cb319bb79973f3b30602c2c1b5c5356af5b3ad32
+  SimpleKeychain: 0c657949c7afff92337d2ff64052d5eb5c53823e
   SwiftState: 5696580d3b91656d1c67773ca5c6d5e51610c711
 
-PODFILE CHECKSUM: bdd4f0055253812ba799d103ee74544ac64d1234
+PODFILE CHECKSUM: 18149a6d808bcd7e13e153dbec5955389ee2fd1b
 
 COCOAPODS: 1.8.4

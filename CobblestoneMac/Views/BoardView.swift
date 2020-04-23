@@ -11,8 +11,8 @@ import GameKit
 
 struct BoardView: View {
 //    @EnvironmentObject var dropManager: DragAndDrop
-    @EnvironmentObject var game: Game
     @EnvironmentObject var model: ViewModel
+    var board: Board
 //    var minionDropZoneDelegates: [MinionDropZoneDelegate]
     let maxWidth = 840.0
     let minionWidth = 120.0
@@ -28,7 +28,7 @@ struct BoardView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(self.game.board.red, id: \.name) { minion in
+            ForEach(self.board.red, id: \.name) { minion in
 //                MinionPlacementView(dropZone: self.minionDropZoneDelegates[index], index: index)
                 MinionInPlayView(minion: minion)
             }
@@ -60,9 +60,8 @@ struct BoardView: View {
 
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardView()
+        BoardView(board: Board.test)
 //            .environmentObject(DragAndDrop())
-            .environmentObject(Game.sharedSample)
-            .environmentObject(ViewModel(game: Game.sharedSample))
+//            .environmentObject(ViewModel(game: Game(credentials: <#T##Credentials#>)))
     }
 }

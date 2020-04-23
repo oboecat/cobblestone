@@ -28,24 +28,26 @@ struct Minion: Codable {
     init(name: String, attack: Int, health: Int) {
         self.init(name: name, attack: attack, health: health, statuses: nil)
     }
-    
+}
+
+extension Minion {
     static let `default` = Minion(name: "Test", attack: 4, health: 8, statuses: [.taunt, .divineShield])
 }
 
-struct MinionInPlay: Identifiable {
-    let id: UUID
+struct MinionInPlay: Identifiable, Codable {
+    let id: String
     var name: String
-    var attack: Attack
+    var attack: Int
     var health: Health
     var statuses: Set<MinionStatus>
     var color: PlayerColor
     var attacksRemaining: Int
     
-    init(id: UUID = UUID(), name: String, attack: Int, health: Int, statuses: Set<MinionStatus> = [], color: PlayerColor, mustRest: Bool = true) {
+    init(id: String = "6D63AF30-5A10-485A-B913-C89EE0C42178", name: String, attack: Int, health: Int, statuses: Set<MinionStatus> = [], color: PlayerColor, mustRest: Bool = true) {
         self.id = id
         self.color = color
         self.name = name
-        self.attack = Attack(attack)
+        self.attack = attack
         self.health = Health(health)
         self.statuses = statuses
         self.attacksRemaining = statuses.contains(.charge) || mustRest == false ? 1 : 0
@@ -74,6 +76,8 @@ struct MinionInPlay: Identifiable {
     func canAttack() -> Bool {
         attacksRemaining > 0
     }
-    
+}
+
+extension MinionInPlay {
     static let `default` = MinionInPlay(Minion.default, color: .red)
 }

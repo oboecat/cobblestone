@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Board {
+struct Board: Codable {
     var minions: [[MinionInPlay]]
     
     var red: [MinionInPlay] {
@@ -66,4 +66,11 @@ struct Board {
             minions[color.rawValue] = newValue
         }
     }
+}
+
+extension Board {
+    static let test = Board(
+        red: minionCollection[6...8].map { MinionInPlay($0.minion, color: .red, mustRest: false) },
+        blue: minionCollection[9...10].map { MinionInPlay($0.minion, color: .blue, mustRest: false) }
+    )
 }

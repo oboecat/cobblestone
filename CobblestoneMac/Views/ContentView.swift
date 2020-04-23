@@ -9,42 +9,39 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var game: Game
-    @EnvironmentObject var model: ViewModel
-
-    var body: some View {
-        HStack {
-            if game.activePlayerColor == .red {
-                VStack {
-                    OpponentHandView(numberOfCards: game.bluePlayer.hand.count)
-                    SimpleBoardView(friendlyBoard: game.board.red, opposingBoard: game.board.blue)
-                    HStack {
-                        CancelButtonView()
-                        ConfirmButtonView()
-                    }
-                    HandView(hand: game.redPlayer.hand)
-                }
-            } else {
-                VStack {
-                    OpponentHandView(numberOfCards: game.redPlayer.hand.count)
-                    SimpleBoardView(friendlyBoard: game.board.blue, opposingBoard: game.board.red)
-                    HStack {
-                        CancelButtonView()
-                        ConfirmButtonView()
-                    }
-                    HandView(hand: game.bluePlayer.hand)
-                }
+    @EnvironmentObject var appViewModel: AppViewModel
+    
+    func damnView() -> AnyView {
+        switch appViewModel.userAuthState {
+        case .loading:
+            return AnyView(LoadingView())
+        case .notSignedIn:
+            return AnyView(LoginView())
+        case .signedIn(let user, _):
+            switch appViewModel.authenticatedView {
+            case .home:
+                return AnyView(HomeView(user: user))
+            case .inGame(let game):
+                let viewModel = ViewModel(game: game)
+                return AnyView(GameView()
+                    .environmentObject(game)
+                    .environmentObject(viewModel)
+                )
+            case .none:
+                return AnyView(Text("This shouldn't happen"))
             }
-            TurnButtonView()
+            
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    var body: some View {
+        damnView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(Game.sharedSample)
-            .environmentObject(ViewModel(game: Game.sharedSample))
     }
 }

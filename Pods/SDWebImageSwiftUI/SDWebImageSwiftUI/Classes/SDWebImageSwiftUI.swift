@@ -26,6 +26,8 @@ extension Image {
         self.init(uiImage: platformImage)
         #endif
     }
+    
+    static var empty = Image(platformImage: PlatformImage())
 }
 
 #if os(macOS)
@@ -52,4 +54,23 @@ public typealias PlatformViewRepresentable = UIViewRepresentable
 #if os(watchOS)
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 public typealias PlatformViewRepresentable = WKInterfaceObjectRepresentable
+#endif
+
+#if os(macOS)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension NSViewRepresentable {
+    typealias PlatformViewType = NSViewType
+}
+#endif
+#if os(iOS) || os(tvOS)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension UIViewRepresentable {
+    typealias PlatformViewType = UIViewType
+}
+#endif
+#if os(watchOS)
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension WKInterfaceObjectRepresentable {
+    typealias PlatformViewType = WKInterfaceObjectType
+}
 #endif
