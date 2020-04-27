@@ -1,21 +1,21 @@
 PODS:
-  - Alamofire (5.0.5)
-  - Auth0 (1.22.1):
+  - Alamofire (5.1.0)
+  - Auth0 (1.23.0):
     - JWTDecode
     - SimpleKeychain
   - JWTDecode (2.4.1)
   - RMJSONPatch (1.0.4)
-  - SDWebImage (5.6.1):
-    - SDWebImage/Core (= 5.6.1)
-  - SDWebImage/Core (5.6.1)
-  - SDWebImageSwiftUI (1.1.0):
-    - SDWebImage (~> 5.3)
+  - SDWebImage (5.7.3):
+    - SDWebImage/Core (= 5.7.3)
+  - SDWebImage/Core (5.7.3)
+  - SDWebImageSwiftUI (1.3.3):
+    - SDWebImage (~> 5.7)
   - SimpleKeychain (0.11.1)
   - SwiftState (6.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0)
-  - Auth0 (~> 1.22)
+  - Auth0 (from `https://github.com/auth0/Auth0.swift.git`, branch `macos-web-auth/implementation`)
   - RMJSONPatch (from `https://github.com/raymccrae/swift-jsonpatch.git`)
   - SDWebImageSwiftUI
   - SwiftState (~> 6.0)
@@ -23,7 +23,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
-    - Auth0
     - JWTDecode
     - SDWebImage
     - SDWebImageSwiftUI
@@ -31,24 +30,30 @@ SPEC REPOS:
     - SwiftState
 
 EXTERNAL SOURCES:
+  Auth0:
+    :branch: macos-web-auth/implementation
+    :git: https://github.com/auth0/Auth0.swift.git
   RMJSONPatch:
     :git: https://github.com/raymccrae/swift-jsonpatch.git
 
 CHECKOUT OPTIONS:
+  Auth0:
+    :commit: c837d9f272cd3918acd46a5e2bfbc85b83cc577b
+    :git: https://github.com/auth0/Auth0.swift.git
   RMJSONPatch:
     :commit: 65edda8a5a756985418e53968491f25d5dc4a217
     :git: https://github.com/raymccrae/swift-jsonpatch.git
 
 SPEC CHECKSUMS:
-  Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
-  Auth0: c3dd0b6f9031e9cc38be2a6973f766f33ccbad83
+  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
+  Auth0: 4d1b219f7b6a93460d74e24e25c570d088ca6495
   JWTDecode: 4bd4da0cdf0f8154fd467fa48499f34ec057fb88
   RMJSONPatch: 60d351ad27d164352f8ea6b055c07c976f1bd2d1
-  SDWebImage: 7edb9c3ea661e77a66661f7f044de8c1b55d1120
-  SDWebImageSwiftUI: cb319bb79973f3b30602c2c1b5c5356af5b3ad32
+  SDWebImage: 97351f6582ceca541ea294ba66a1fcb342a331c2
+  SDWebImageSwiftUI: a34ad354527ec71f8dcb5c5e82179734285280a6
   SimpleKeychain: 0c657949c7afff92337d2ff64052d5eb5c53823e
   SwiftState: 5696580d3b91656d1c67773ca5c6d5e51610c711
 
-PODFILE CHECKSUM: 18149a6d808bcd7e13e153dbec5955389ee2fd1b
+PODFILE CHECKSUM: 08eefa6274508a8c0702d98d7e20ac4c48115050
 
 COCOAPODS: 1.8.4

@@ -59,23 +59,6 @@ All issue reports, feature requests, contributions, and GitHub stars are welcome
 
 ## Installation
 
-#### CocoaPods
-
-SDWebImageSwiftUI is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod 'SDWebImageSwiftUI'
-```
-
-#### Carthage
-
-SDWebImageSwiftUI is available through [Carthage](https://github.com/Carthage/Carthage).
-
-```
-github "SDWebImage/SDWebImageSwiftUI"
-```
-
 #### Swift Package Manager
 
 SDWebImageSwiftUI is available through [Swift Package Manager](https://swift.org/package-manager/).
@@ -96,6 +79,23 @@ let package = Package(
 )
 ```
 
+#### CocoaPods
+
+SDWebImageSwiftUI is available through [CocoaPods](https://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod 'SDWebImageSwiftUI'
+```
+
+#### Carthage
+
+SDWebImageSwiftUI is available through [Carthage](https://github.com/Carthage/Carthage).
+
+```
+github "SDWebImage/SDWebImageSwiftUI"
+```
+
 ## Usage
 
 ### Using `WebImage` to load network image
@@ -110,20 +110,21 @@ let package = Package(
 ```swift
 var body: some View {
     WebImage(url: URL(string: "https://nokiatech.github.io/heif/content/images/ski_jump_1440x960.heic"))
-        .onSuccess { image, cacheType in
-            // Success
-        }
-        .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
-        .placeholder(Image(systemName: "photo")) // Placeholder Image
-        // Supports ViewBuilder as well
-        .placeholder {
-            Rectangle().foregroundColor(.gray)
-        }
-        .indicator(.activity) // Activity Indicator
-        .animation(.easeInOut(duration: 0.5)) // Animation Duration
-        .transition(.fade) // Fade Transition
-        .scaledToFit()
-        .frame(width: 300, height: 300, alignment: .center)
+    // Supports options and context, like `.delayPlaceholder` to show placeholder only when error
+    .onSuccess { image, cacheType in
+        // Success
+    }
+    .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+    .placeholder(Image(systemName: "photo")) // Placeholder Image
+    // Supports ViewBuilder as well
+    .placeholder {
+        Rectangle().foregroundColor(.gray)
+    }
+    .indicator(.activity) // Activity Indicator
+    .animation(.easeInOut(duration: 0.5)) // Animation Duration
+    .transition(.fade) // Fade Transition
+    .scaledToFit()
+    .frame(width: 300, height: 300, alignment: .center)
 }
 ```
 
@@ -155,13 +156,17 @@ var body: some View {
 ```swift
 var body: some View {
     Group {
-        // Network
-        AnimatedImage(url: URL(string: "https://raw.githubusercontent.com/liyong03/YLGIFImage/master/YLGIFImageDemo/YLGIFImageDemo/joy.gif"), options: [.progressiveLoad]) // Progressive Load
+        AnimatedImage(url: URL(string: "https://raw.githubusercontent.com/liyong03/YLGIFImage/master/YLGIFImageDemo/YLGIFImageDemo/joy.gif"))
+        // Supports options and context, like `.progressiveLoad` for progressive animation loading
         .onFailure { error in
             // Error
         }
         .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
         .placeholder(UIImage(systemName: "photo")) // Placeholder Image
+        // Supports ViewBuilder as well
+        .placeholder {
+            Circle().foregroundColor(.gray)
+        }
         .indicator(SDWebImageActivityIndicator.medium) // Activity Indicator
         .transition(.fade) // Fade Transition
         .scaledToFit() // Attention to call it on AnimatedImage, but not `some View` after View Modifier (Swift Protocol Extension method is static dispatched)
@@ -175,7 +180,11 @@ var body: some View {
         AnimatedImage(name: "animation1", isAnimating: $isAnimating)) // Animation control binding
         .maxBufferSize(.max)
         .onViewUpdate { view, context in // Advanced native view coordinate
+            // AppKit tooltip for mouse hover
             view.toolTip = "Mouseover Tip"
+            // UIKit advanced content mode
+            view.contentMode = .topLeft
+            // Coordinator, used for Cocoa Binding or Delegate method
             let coordinator = context.coordinator
         }
     }
@@ -186,12 +195,16 @@ Note: `AnimatedImage` supports both image url or image data for animated image f
 
 Note: `AnimatedImage` some methods like `.transition`, `.indicator` and `.aspectRatio` have the same naming as `SwiftUI.View` protocol methods. But the args receive the different type. This is because `AnimatedImage` supports to be used with UIKit/AppKit component and animation. If you find ambiguity, use full type declaration instead of the dot expression syntax.
 
+Note: some of methods on `AnimatedImage` will return `some View`, a new Modified Content. You'll lose the type related modifier method. For this case, you can either reorder the method call, or use Native View in `.onViewUpdate` for rescue.
+
 ```swift
-AnimatedImage(name: "animation2") // Just for showcase, don't mix them at the same time
-  .indicator(SDWebImageProgressIndicator.default) // UIKit indicator component
-  .indicator(Indicator.progress) // SwiftUI indicator component
-  .transition(SDWebImageTransition.flipFromLeft) // UIKit animation transition
-  .transition(AnyTransition.flipFromLeft) // SwiftUI animation transition
+var body: some View {
+    AnimatedImage(name: "animation2") // Just for showcase, don't mix them at the same time
+    .indicator(SDWebImageProgressIndicator.default) // UIKit indicator component
+    .indicator(Indicator.progress) // SwiftUI indicator component
+    .transition(SDWebImageTransition.flipFromLeft) // UIKit animation transition
+    .transition(AnyTransition.flipFromLeft) // SwiftUI animation transition
+}
 ```
 
 ### Which View to choose

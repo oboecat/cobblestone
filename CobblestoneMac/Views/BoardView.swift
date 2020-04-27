@@ -60,7 +60,7 @@ struct BoardView: View {
 
 struct BoardView_Previews: PreviewProvider {
     static var previews: some View {
-        BoardView(board: Board.test)
+        BoardView(board: Board.default)
 //            .environmentObject(DragAndDrop())
 //            .environmentObject(ViewModel(game: Game(credentials: <#T##Credentials#>)))
     }

@@ -11,7 +11,7 @@ import JSONPatch
 import Auth0
 
 class Game: ObservableObject {
-    @Published var state: GameState = GameState.sharedSample
+    @Published var state: GameStateFOW = GameStateFOW.sharedSample
     @Published var isLoading: Bool = false
     var service: GameService
     private var stateData: Data = Data()
@@ -33,8 +33,8 @@ class Game: ObservableObject {
         service.getGameState { data in
             if data != nil {
                 self.stateData = data!
-                self.state = try! JSONDecoder().decode(GameState.self, from: self.stateData)
-                print("\(self.state.redPlayer.hand)")
+                self.state = try! JSONDecoder().decode(GameStateFOW.self, from: self.stateData)
+                print("\(self.state.player.hand)")
             }
             self.isLoading = false
         }
@@ -47,11 +47,11 @@ class Game: ObservableObject {
         }
 //        print("Updating state!")
         isLoading = true
-        service.getStateDifference(sinceTurn: state.turn) { diff in
-            print("Current turn: \(self.state.turn)")
+        service.getStateDifference(since: state.frameId) { diff in
+            print("Current frame: \(self.state.frameId)")
             if diff != nil {
                 self.stateData = try! diff!.apply(to: self.stateData)
-                self.state = try! JSONDecoder().decode(GameState.self, from: self.stateData)
+                self.state = try! JSONDecoder().decode(GameStateFOW.self, from: self.stateData)
             }
             self.isLoading = false
         }
@@ -59,85 +59,33 @@ class Game: ObservableObject {
     
     func nextTurn() {
         let action = PlayerAction.endTurn.toAction()
-        service.sendAction(action)
-//        turn += 1
-//
-//        switch activePlayerColor {
-//        case .red:
-//            takeNextTurn(player: &redPlayer)
-//            activePlayerColor = .blue
-//        case .blue:
-//            takeNextTurn(player: &bluePlayer)
-//            activePlayerColor = .red
-//        }
+        completeAction(action)
     }
-        
-//    private func takeNextTurn(player: inout Player) {
-//        if player.maxMana < 10 {
-//            player.maxMana += 1
-//        }
-//
-//        player.mana = player.maxMana
-//
-//        for index in board[player.color].indices {
-//            board[player.color, index].attacksRemaining = 1
-//        }
-//
-//        if player.deck.count > 0 {
-//            let drawnCard = player.deck.removeFirst()
-//            player.hand.append(drawnCard)
-//        }
-//    }
-    
-//    func playCard(_ card: Card) {
-//        tryPlayMinion(card, position: nil)
-//    }
     
     func playMinion(_ card: Card, position: Int?) {
-        let player: Player
-        
-        switch state.activePlayerColor {
-        case .red:
-            player = state.redPlayer
-        case .blue:
-            player = state.bluePlayer
+        if state.player.color != state.activePlayerColor {
+           print("It is not my turn yet")
+            return
         }
-        print("\(player.hand)")
-        print("\(card.id)")
-        if !player.hand.contains(where: { card.id == $0.id }) {
+        
+        if !state.player.hand.contains(where: { card.id == $0.id }) {
             print("No such card in hand")
             return
         }
         
-        if card.cost > player.mana {
+        if card.cost > state.player.mana {
             print("Not enough mana")
             return
         }
         
-        if state.board[state.activePlayerColor].count >= 7 {
+        if state.board[state.player.color].count >= 7 {
             print("Board is full!")
             return
         }
         
         let action = PlayerAction.playMinion(minionCard: card, position: position ?? 0).toAction()
-        service.sendAction(action)
+        completeAction(action)
     }
-    
-//    private func playMinion(for player: inout Player, card: Card, position: Int?) {
-//        guard let handIndex = player.hand.firstIndex(where: { card.id == $0.id }) else {
-//            return
-//        }
-//
-//        let minion = MinionInPlay(card.minion, color: player.color)
-//        player.mana -= card.cost
-//        player.hand.remove(at: handIndex)
-//
-//        if let boardSlot = position, boardSlot < board[player.color].endIndex {
-//            board[player.color].insert(minion, at: boardSlot)
-//        } else {
-//            board[player.color].insert(minion, at: board.red.endIndex)
-//        }
-//    }
     
     func tryCombat(_ attacker: MinionInPlay, attacking defender: MinionInPlay) {
         if attacker.color != state.activePlayerColor {
@@ -169,59 +117,21 @@ class Game: ObservableObject {
         }
         
         let action = PlayerAction.combat(attacker: attacker, target: defender).toAction()
-        service.sendAction(action)
-//
-//        var newAttacker = board[attacker.color][board[attacker.color].firstIndex(where: { $0.id == attacker.id })!]
-//        var newDefender = board[defender.color][board[defender.color].firstIndex(where: { $0.id == defender.id })!]
-//        combat(attacker: &newAttacker, defender: &newDefender)
+        completeAction(action)
     }
     
-//    private func combat(attacker: inout MinionInPlay, defender: inout MinionInPlay) {
-//        attacker.attacksRemaining -= 1
-//
-//        if attacker.statuses.contains(.stealth) {
-//            attacker.statuses.remove(.stealth)
-//        }
-//
-//        if attacker.statuses.contains(.divineShield) {
-//            attacker.statuses.remove(.divineShield)
-//        } else {
-//            attacker.health.damage(by: defender.attack)
-//        }
-//
-//        if defender.statuses.contains(.divineShield) {
-//            defender.statuses.remove(.divineShield)
-//        } else {
-//            defender.health.damage(by: attacker.attack)
-//        }
-//
-//        let defenderIndex = board[defender.color].firstIndex(where: { $0.id == defender.id })!
-//        if !defender.health.isAlive() {
-//            print("\(defender.name) died")
-//            board[defender.color].remove(at: defenderIndex)
-//        } else {
-//            print("\(defender.name) has \(defender.health.current) health left")
-//            board[defender.color][defenderIndex] = defender
-//        }
-//
-//        let attackerIndex = board[attacker.color].firstIndex(where: { $0.id == attacker.id })!
-//        if !attacker.health.isAlive() {
-//            print("\(attacker.name) died")
-//            board[attacker.color].remove(at: attackerIndex)
-//        } else {
-//            print("\(attacker.name) has \(attacker.health.current) health left")
-//            board[attacker.color][attackerIndex] = attacker
-//        }
-//    }
-    
-//    private func updateMinion(minion: MinionInPlay) {
-//        let index = board[minion.color]!.firstIndex(where: { $0.id == minion.id })!
-//        if minion.health.status == .dead {
-//            print("\(minion.name) died")
-//            board[minion.color]!.remove(at: index)
-//        } else {
-//            print("\(minion.name) has \(minion.health.current) health left")
-//            board[minion.color]![index] = minion
-//        }
-//    }
+    private func completeAction(_ action: Action) {
+        if isLoading {
+            print("Loading already")
+        }
+        isLoading = true
+        service.sendAction(action) { diff in
+            if diff != nil {
+                print("Received action response")
+                self.stateData = try! diff!.apply(to: self.stateData)
+                self.state = try! JSONDecoder().decode(GameStateFOW.self, from: self.stateData)
+            }
+            self.isLoading = false
+        }
+    }
 }

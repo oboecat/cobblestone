@@ -69,7 +69,7 @@ struct Board: Codable {
 }
 
 extension Board {
-    static let test = Board(
+    static let `default` = Board(
         red: minionCollection[6...8].map { MinionInPlay($0.minion, color: .red, mustRest: false) },
         blue: minionCollection[9...10].map { MinionInPlay($0.minion, color: .blue, mustRest: false) }
     )

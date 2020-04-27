@@ -12,14 +12,14 @@ import GameKit
 struct SimpleBoardView: View {
     @EnvironmentObject var model: ViewModel
     var friendlyBoard: [MinionInPlay]
-    var opposingBoard: [MinionInPlay]
+    var enemyBoard: [MinionInPlay]
     let maxWidth = 840.0
 //    let minionWidth = 120.0
 
     var body: some View {
         VStack(spacing: 10) {
             HStack(spacing: 20) {
-                ForEach(self.opposingBoard, id: \.name) { minion in
+                ForEach(self.enemyBoard, id: \.name) { minion in
                     MinionInPlayView(minion: minion)
                         .onTapGesture {
                             self.model.selectMinionInBattlefield(minion: minion)
@@ -42,7 +42,7 @@ struct SimpleBoardView: View {
 
 struct SimpleBoardView_Previews: PreviewProvider {
     static var previews: some View {
-        SimpleBoardView(friendlyBoard: Board.test.red, opposingBoard: Board.test.blue)
+        SimpleBoardView(friendlyBoard: Board.default.red, enemyBoard: Board.default.blue)
 //            .environmentObject(ViewModel(game: Game()))
     }
 }

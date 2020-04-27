@@ -83,6 +83,11 @@ final class AnimatedImageConfiguration: ObservableObject {
     var indicator: SDWebImageIndicator?
     var transition: SDWebImageTransition?
     var placeholder: PlatformImage?
+    var placeholderView: PlatformView? {
+        didSet {
+            oldValue?.removeFromSuperview()
+        }
+    }
 }
 
 /// A Image View type to load image from url, data or bundle. Supports animated and static image format.
@@ -203,6 +208,11 @@ public struct AnimatedImage : PlatformViewRepresentable {
             return
         }
         self.imageLoading.isLoading = true
+        if imageModel.webOptions.contains(.delayPlaceholder) {
+            self.imageConfiguration.placeholderView?.isHidden = true
+        } else {
+            self.imageConfiguration.placeholderView?.isHidden = false
+        }
         view.wrapped.sd_setImage(with: imageModel.url, placeholderImage: imageConfiguration.placeholder, options: imageModel.webOptions, context: imageModel.webContext, progress: { (receivedSize, expectedSize, _) in
             let progress: Double
             if (expectedSize > 0) {
@@ -218,18 +228,22 @@ public struct AnimatedImage : PlatformViewRepresentable {
             // This is a hack because of Xcode 11.3 bug, the @Published does not trigger another `updateUIView` call
             // Here I have to use UIKit/AppKit API to triger the same effect (the window change implicitly cause re-render)
             if let hostingView = AnimatedImage.findHostingView(from: view) {
-                #if os(macOS)
-                hostingView.viewDidMoveToWindow()
-                #else
-                hostingView.didMoveToWindow()
-                #endif
+                if let _ = hostingView.window {
+                    #if os(macOS)
+                    hostingView.viewDidMoveToWindow()
+                    #else
+                    hostingView.didMoveToWindow()
+                    #endif
+                }
             }
             self.imageLoading.image = image
             self.imageLoading.isLoading = false
             self.imageLoading.progress = 1
             if let image = image {
+                self.imageConfiguration.placeholderView?.isHidden = true
                 self.imageHandler.successBlock?(image, cacheType)
             } else {
+                self.imageConfiguration.placeholderView?.isHidden = false
                 self.imageHandler.failureBlock?(error ?? NSError())
             }
         }
@@ -261,6 +275,21 @@ public struct AnimatedImage : PlatformViewRepresentable {
         } else if let url = imageModel.url, url != view.wrapped.sd_imageURL {
             view.wrapped.sd_imageIndicator = imageConfiguration.indicator
             view.wrapped.sd_imageTransition = imageConfiguration.transition
+            if let placeholderView = imageConfiguration.placeholderView {
+                placeholderView.removeFromSuperview()
+                placeholderView.isHidden = true
+                // Placeholder View should below the Indicator View
+                if let indicatorView = imageConfiguration.indicator?.indicatorView {
+                    #if os(macOS)
+                    view.wrapped.addSubview(placeholderView, positioned: .below, relativeTo: indicatorView)
+                    #else
+                    view.wrapped.insertSubview(placeholderView, belowSubview: indicatorView)
+                    #endif
+                } else {
+                    view.wrapped.addSubview(placeholderView)
+                }
+                placeholderView.bindFrameToSuperviewBounds()
+            }
             loadImage(view, context: context)
         }
         
@@ -350,7 +379,7 @@ public struct AnimatedImage : PlatformViewRepresentable {
         }
         
         // Animated Image does not support resizing mode and rendering mode
-        if let image = view.wrapped.image, !image.sd_isAnimated, !image.conforms(to: SDAnimatedImageProtocol.self) {
+        if let image = view.wrapped.image, !image.conforms(to: SDAnimatedImageProtocol.self) {
             var image = image
             // ResizingMode
             if let resizingMode = imageLayout.resizingMode, imageLayout.capInsets != EdgeInsets() {
@@ -556,11 +585,11 @@ extension AnimatedImage {
         // So, if we don't override this method, SwiftUI ignore the content mode on actual ImageView
         // To workaround, we want to call the default `SwifUI.View.aspectRatio(_:contentMode:)` method
         // But 2: there are no way to call a Protocol Extention default implementation in Swift 5.1
-        // So, we need a hack, that create a empty modifier, they call method on that view instead
+        // So, we directly call the implementation detail modifier instead
         // Fired Radar: FB7413534
         self.imageLayout.aspectRatio = aspectRatio
         self.imageLayout.contentMode = contentMode
-        return self.modifier(EmptyModifier()).aspectRatio(aspectRatio, contentMode: contentMode)
+        return self.modifier(_AspectRatioLayout(aspectRatio: aspectRatio, contentMode: contentMode))
     }
 
     /// Constrains this view's dimensions to the aspect ratio of the given size.
@@ -572,13 +601,7 @@ extension AnimatedImage {
     /// - Returns: A view that constrains this view's dimensions to
     ///   `aspectRatio`, using `contentMode` as its scaling algorithm.
     public func aspectRatio(_ aspectRatio: CGSize, contentMode: ContentMode) -> some View {
-        var ratio: CGFloat?
-        if aspectRatio.width > 0 && aspectRatio.height > 0 {
-            ratio = aspectRatio.width / aspectRatio.height
-        } else {
-            NSException(name: .invalidArgumentException, reason: "\(type(of: self)).\(#function) should be called with positive aspectRatio", userInfo: nil).raise()
-        }
-        return self.aspectRatio(ratio, contentMode: contentMode)
+        return self.aspectRatio(aspectRatio.width / aspectRatio.height, contentMode: contentMode)
     }
 
     /// Scales this view to fit its parent.
@@ -732,8 +755,21 @@ extension AnimatedImage {
     
     /// Associate a placeholder when loading image with url
     /// - Parameter content: A view that describes the placeholder.
-    public func placeholder(_ placeholder: PlatformImage?) -> AnimatedImage {
-        self.imageConfiguration.placeholder = placeholder
+    /// - note: The differences between this and placeholder image, it's that placeholder image replace the image for image view, but this modify the View Hierarchy to overlay the placeholder hosting view
+    public func placeholder<T>(@ViewBuilder content: () -> T) -> AnimatedImage where T : View {
+        #if os(macOS)
+        let hostingView = NSHostingView(rootView: content())
+        #else
+        let hostingView = _UIHostingView(rootView: content())
+        #endif
+        self.imageConfiguration.placeholderView = hostingView
+        return self
+    }
+    
+    /// Associate a placeholder image when loading image with url
+    /// - Parameter content: A view that describes the placeholder.
+    public func placeholder(_ image: PlatformImage?) -> AnimatedImage {
+        self.imageConfiguration.placeholder = image
         return self
     }
     

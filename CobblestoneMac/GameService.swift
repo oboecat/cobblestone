@@ -27,6 +27,7 @@ class GameService {
                 completion(nil)
                 return
             }
+            print(credentials!.accessToken!)
             let headers = self.headers(accessToken: credentials!.accessToken!)
             AF.request("http://localhost:3000/game/\(self.gameId)", headers: headers).responseData { res in
                 if let data = res.data {
@@ -38,7 +39,7 @@ class GameService {
         }
     }
     
-    func getStateDifference(sinceTurn turn: Int, completion: @escaping (JSONPatch?) -> Void) {
+    func getStateDifference(since frame: Int, completion: @escaping (JSONPatch?) -> Void) {
 //        print("Requesting difference...")
         self.credentialsManager.credentials { err, credentials in
             guard err == nil, credentials != nil else {
@@ -47,7 +48,7 @@ class GameService {
                 return
             }
             let headers = self.headers(accessToken: credentials!.accessToken!)
-            AF.request("http://localhost:3000/game/\(self.gameId)?since=\(turn)", headers: headers).responseData { res in
+            AF.request("http://localhost:3000/game/\(self.gameId)?since=\(frame)", headers: headers).responseData { res in
                 if let data = res.data {
                     let diff = try? JSONPatch(data: data)
                     completion(diff)
@@ -58,24 +59,22 @@ class GameService {
         }
     }
     
-    func sendAction(_ action: Action) {
+    func sendAction(_ action: Action, completion: @escaping (JSONPatch?) -> Void) {
         self.credentialsManager.credentials { err, credentials in
             guard err == nil, credentials != nil else {
                 print("Could not retrieve credentials")
                 return
             }
+            print("Sending action \(action)")
             let headers = self.headers(accessToken: credentials!.accessToken!)
-            AF.request("http://localhost:3000/game/\(self.gameId)", method: .post, parameters: action, encoder: JSONParameterEncoder.default, headers: headers).responseString { res in
-//                print("\(res.debugDescription)")
+            AF.request("http://localhost:3000/game/\(self.gameId)", method: .post, parameters: action, encoder: JSONParameterEncoder.default, headers: headers).responseData { res in
+                if let data = res.data {
+                    let diff = try? JSONPatch(data: data)
+                    completion(diff)
+                } else {
+                    completion(nil)
+                }
             }
-//            .responseData { res in
-//            if let data = res.data {
-//                let diff = try? JSONPatch(data: data)
-//                completion(diff)
-//            } else {
-//                completion(nil)
-//            }
-//        }
         }
     }
     

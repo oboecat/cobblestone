@@ -15,12 +15,11 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
-    let credentialsManager = CredentialsManager(authentication: Auth0.authentication())
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         print("hello")
-        let appViewModel = AppViewModel()
-        let contentView = ContentView().environmentObject(appViewModel)
+//        let appViewModel = AppViewModel()
+        let contentView = ContentView()
 //        let game = Game(accessToken: credentials!.accessToken!)
 //            let viewModel = ViewModel(game: game)
 //            print("Creating view")
@@ -41,47 +40,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
     
-    func login(completion: @escaping (Credentials?) -> Void) {
-//        print("Please enter your email")
-//        let email = readLine()!
-        let email = "lilapusto@gmail.com"
-        
-        Auth0
-            .authentication()
-            .startPasswordless(email: email)
-            .start { result in
-                switch result {
-                case .success:
-                    print("Sent OTP to \(email)!")
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        
-        print("Please enter the OTP to log in")
-        let code = readLine()!
-        Auth0
-            .authentication()
-            .login(
-                email: email,
-                code: code,
-                audience: "https://game.example.com",
-                scope: "openid profile offline_access")
-            .start { result in
-                switch result {
-                case .success(let credentials):
-//                    print("access token: \(credentials.accessToken!))")
-//                    print("id token: \(credentials.idToken!))")
-//                    print("refresh token: \(credentials.refreshToken ?? "none"))")
-                    DispatchQueue.main.async {
-                        completion(credentials)
-                    }
-                case .failure(let error):
-                    print(error)
-                    DispatchQueue.main.async {
-                        completion(nil)
-                    }
-                }
-            }
+    func application(_ application: NSApplication, open urls: [URL]) {
+        print("Resume auth")
+        return Auth0.resumeAuth(urls)
     }
 }

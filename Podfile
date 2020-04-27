@@ -8,7 +8,7 @@ target 'CobblestoneMac' do
   # Pods for CobblestoneMac
   pod 'SwiftState', '~> 6.0'
   pod 'SDWebImageSwiftUI'
-  pod 'Auth0', '~> 1.22'
+  pod 'Auth0', :git => 'https://github.com/auth0/Auth0.swift.git', :branch => 'macos-web-auth/implementation'
   pod 'Alamofire', '~> 5.0'
   pod 'RMJSONPatch', :git => 'https://github.com/raymccrae/swift-jsonpatch.git'
 end

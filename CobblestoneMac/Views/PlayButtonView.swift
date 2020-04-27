@@ -13,15 +13,20 @@ struct PlayButtonView: View {
     
     var body: some View {
         Button(action: {
-            self.appViewModel.startGame()
+            switch self.appViewModel.userAuthState {
+            case .signedIn(let user, let manager, _):
+                self.appViewModel.userAuthState = .signedIn(user: user, manager: manager, stage: .inGame(id: 0))
+            default:
+                return
+            }
         }) {
             Text("Play")
         }
     }
 }
 
-struct PlayButtonView_Previews: PreviewProvider {
-    static var previews: some View {
-        PlayButtonView()
-    }
-}
+//struct PlayButtonView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PlayButtonView()
+//    }
+//}

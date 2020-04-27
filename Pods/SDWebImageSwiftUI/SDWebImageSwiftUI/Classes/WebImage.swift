@@ -60,19 +60,16 @@ public struct WebImage : View {
     }
     
     public var body: some View {
-        // load remote image when first called `body`, SwiftUI sometimes will create a new View struct without calling `onAppear` (like enter EditMode) :)
-        // this can ensure we load the image, and display image synchronously when memory cache hit to avoid flashing
-        // called once per struct, SDWebImage take care of the duplicated query
-        if imageManager.isFirstLoad {
-            imageManager.load()
+        // this prefetch the memory cache of image, to immediately render it on screen
+        // this solve the case when `onAppear` not been called, for example, some transaction indeterminate state, SwiftUI :)
+        if imageManager.isFirstPrefetch {
+            imageManager.prefetch()
         }
         return Group {
             if imageManager.image != nil {
-                if isAnimating && !self.imageManager.isIncremental {
+                if isAnimating && !imageManager.isIncremental {
                     if currentFrame != nil {
-                        configurations.reduce(Image(platformImage: currentFrame!)) { (previous, configuration) in
-                            configuration(previous)
-                        }
+                        configure(image: currentFrame!)
                         .onAppear {
                             self.imagePlayer?.startPlaying()
                         }
@@ -87,38 +84,27 @@ public struct WebImage : View {
                             }
                         }
                     } else {
-                        configurations.reduce(Image(platformImage: imageManager.image!)) { (previous, configuration) in
-                            configuration(previous)
-                        }
+                        configure(image: imageManager.image!)
                         .onReceive(imageManager.$image) { image in
                             self.setupPlayer(image: image)
                         }
                     }
                 } else {
                     if currentFrame != nil {
-                        configurations.reduce(Image(platformImage: currentFrame!)) { (previous, configuration) in
-                            configuration(previous)
-                        }
+                        configure(image: currentFrame!)
                     } else {
-                        configurations.reduce(Image(platformImage: imageManager.image!)) { (previous, configuration) in
-                            configuration(previous)
-                        }
+                        configure(image: imageManager.image!)
                     }
                 }
             } else {
-                Group {
-                    if placeholder != nil {
-                        placeholder
-                    } else {
-                        // Should not use `EmptyView`, which does not respect to the container's frame modifier
-                        // Using a empty image instead for better compatible
-                        configurations.reduce(Image.empty) { (previous, configuration) in
-                            configuration(previous)
-                        }
-                    }
-                }
+                setupPlaceholder()
                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                 .onAppear {
+                    // load remote image when first appear
+                    if self.imageManager.isFirstLoad {
+                        self.imageManager.load()
+                        return
+                    }
                     guard self.retryOnAppear else { return }
                     // When using prorgessive loading, the new partial image will cause onAppear. Filter this case
                     if self.imageManager.image == nil && !self.imageManager.isIncremental {
@@ -133,6 +119,71 @@ public struct WebImage : View {
                     }
                 }
             }
+        }
+    }
+    
+    /// Configure the platform image into the SwiftUI rendering image
+    func configure(image: PlatformImage) -> some View {
+        // Actual rendering SwiftUI image
+        let result: Image
+        // NSImage works well with SwiftUI, include Vector and EXIF images.
+        #if os(macOS)
+        result = Image(nsImage: image)
+        #else
+        // Fix the SwiftUI.Image rendering issue, like when use EXIF UIImage, the `.aspectRatio` does not works. SwiftUI's Bug :)
+        // See issue #101
+        var cgImage: CGImage?
+        // Case 1: Vector Image, draw bitmap image
+        if image.sd_isVector {
+            // ensure CGImage is nil
+            if image.cgImage == nil {
+                // draw vector into bitmap with the screen scale (behavior like AppKit)
+                #if os(iOS) || os(tvOS)
+                let scale = UIScreen.main.scale
+                #else
+                let scale = WKInterfaceDevice.current().screenScale
+                #endif
+                UIGraphicsBeginImageContextWithOptions(image.size, false, scale)
+                image.draw(at: .zero)
+                cgImage = UIGraphicsGetImageFromCurrentImageContext()?.cgImage
+                UIGraphicsEndImageContext()
+            } else {
+                cgImage = image.cgImage
+            }
+        }
+        // Case 2: Image with EXIF orientation (only EXIF 5-8 contains bug)
+        else if [.left, .leftMirrored, .right, .rightMirrored].contains(image.imageOrientation) {
+            cgImage = image.cgImage
+        }
+        // If we have CGImage, use CGImage based API, else use UIImage based API
+        if let cgImage = cgImage {
+            let scale = image.scale
+            let orientation = image.imageOrientation.toSwiftUI
+            result = Image(decorative: cgImage, scale: scale, orientation: orientation)
+        } else {
+            result = Image(uiImage: image)
+        }
+        #endif
+        
+        // Should not use `EmptyView`, which does not respect to the container's frame modifier
+        // Using a empty image instead for better compatible
+        return configurations.reduce(result) { (previous, configuration) in
+            configuration(previous)
+        }
+    }
+    
+    /// Placeholder View Support
+    func setupPlaceholder() -> some View {
+        // Don't use `Group` because it will trigger `.onAppear` and `.onDisappear` when condition view removed, treat placeholder as an entire component
+        if let placeholder = placeholder {
+            // If use `.delayPlaceholder`, the placeholder is applied after loading failed, hide during loading :)
+            if imageManager.options.contains(.delayPlaceholder) && imageManager.isLoading {
+                return AnyView(configure(image: .empty))
+            } else {
+                return placeholder
+            }
+        } else {
+            return AnyView(configure(image: .empty))
         }
     }
     

@@ -14,26 +14,17 @@ struct GameView: View {
     
     var body: some View {
         HStack {
-            if game.state.activePlayerColor == .red {
-                VStack {
-                    OpponentHandView(numberOfCards: game.state.bluePlayer.hand.count)
-                    SimpleBoardView(friendlyBoard: game.state.board.red, opposingBoard: game.state.board.blue)
-                    HStack {
-                        CancelButtonView()
-                        ConfirmButtonView()
-                    }
-                    HandView(hand: game.state.redPlayer.hand)
+            VStack {
+                OpponentHandView(numberOfCards: game.state.opponent.handCount)
+                SimpleBoardView(
+                    friendlyBoard: game.state.board[game.state.player.color],
+                    enemyBoard: game.state.board[game.state.opponent.color]
+                )
+                HStack {
+                    CancelButtonView()
+                    ConfirmButtonView()
                 }
-            } else {
-                VStack {
-                    OpponentHandView(numberOfCards: game.state.redPlayer.hand.count)
-                    SimpleBoardView(friendlyBoard: game.state.board.blue, opposingBoard: game.state.board.red)
-                    HStack {
-                        CancelButtonView()
-                        ConfirmButtonView()
-                    }
-                    HandView(hand: game.state.bluePlayer.hand)
-                }
+                HandView(hand: game.state.player.hand)
             }
             TurnButtonView()
         }

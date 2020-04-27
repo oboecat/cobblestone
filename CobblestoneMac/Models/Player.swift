@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum PlayerColor: Int, Codable {
-    case red, blue
-}
-
 struct Player: Codable {
     let color: PlayerColor
     var hand: [Card]
@@ -19,7 +15,7 @@ struct Player: Codable {
     var maxMana: Int
     var mana: Int
     
-    static let red = Player(color: .red, hand: [Card.default], deck: [Card](), mana: 1)
+    static let red = Player(color: .red, hand: [Card](minionCollection[3...5]), deck: [Card](), mana: 10)
     static let blue = Player(color: .blue, hand: [Card.default], deck: [Card](), mana: 1)
     
     init(color: PlayerColor,

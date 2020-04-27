@@ -15,7 +15,7 @@ struct HomeView: View {
     var body: some View {
         VStack(alignment: .center) {
             HStack {
-                Text("Hi my name is \(user.name!)")
+                Text("Hi my name is \(user.name ?? "anonymous")")
                 LogoutButtonView()
                 Spacer()
             }
