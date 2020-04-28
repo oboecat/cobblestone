@@ -9,15 +9,13 @@
 import Foundation
 
 struct GameStateFOW: Codable {
-    let frameId: Int
     var player: Player
     var opponent: EnemyPlayer
     var board: Board
     var turn: Int = 1
     var activePlayerColor: PlayerColor
     
-    init(frameId: Int = -1, startingTurn: Int, player: Player, opponent: EnemyPlayer, board: Board) {
-        self.frameId = frameId
+    init(startingTurn: Int, player: Player, opponent: EnemyPlayer, board: Board) {
         self.player = player
         self.opponent = opponent
         self.board = board

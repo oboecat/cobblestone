@@ -10,56 +10,19 @@ import Foundation
 import JSONPatch
 import Auth0
 
-class Game: ObservableObject {
+class Game: ObservableObject, GameServiceDelegate {
     @Published var state: GameStateFOW = GameStateFOW.sharedSample
-    @Published var isLoading: Bool = false
+//    @Published var isLoading: Bool = false
     var service: GameService
-    private var stateData: Data = Data()
-    private var pollingTimer: Timer?
     
     init(credentialsManager: CredentialsManager) {
         self.service = GameService(credentialsManager: credentialsManager)
-        self.getState()
-        self.pollingTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.updateState), userInfo: nil, repeats: true)
-    }
-    
-    func getState() {
-        if isLoading {
-            print("Loading already")
-            return
-        }
-        print("Fetching state")
-        isLoading = true
-        service.getGameState { data in
-            if data != nil {
-                self.stateData = data!
-                self.state = try! JSONDecoder().decode(GameStateFOW.self, from: self.stateData)
-                print("\(self.state.player.hand)")
-            }
-            self.isLoading = false
-        }
-    }
-    
-    @objc func updateState() {
-        if isLoading {
-            print("Loading already")
-            return
-        }
-//        print("Updating state!")
-        isLoading = true
-        service.getStateDifference(since: state.frameId) { diff in
-            print("Current frame: \(self.state.frameId)")
-            if diff != nil {
-                self.stateData = try! diff!.apply(to: self.stateData)
-                self.state = try! JSONDecoder().decode(GameStateFOW.self, from: self.stateData)
-            }
-            self.isLoading = false
-        }
+        service.delegate = self
     }
     
     func nextTurn() {
         let action = PlayerAction.endTurn.toAction()
-        completeAction(action)
+        service.sendAction(action)
     }
     
     func playMinion(_ card: Card, position: Int?) {
@@ -84,7 +47,7 @@ class Game: ObservableObject {
         }
         
         let action = PlayerAction.playMinion(minionCard: card, position: position ?? 0).toAction()
-        completeAction(action)
+        service.sendAction(action)
     }
     
     func tryCombat(_ attacker: MinionInPlay, attacking defender: MinionInPlay) {
@@ -117,21 +80,10 @@ class Game: ObservableObject {
         }
         
         let action = PlayerAction.combat(attacker: attacker, target: defender).toAction()
-        completeAction(action)
+        service.sendAction(action)
     }
     
-    private func completeAction(_ action: Action) {
-        if isLoading {
-            print("Loading already")
-        }
-        isLoading = true
-        service.sendAction(action) { diff in
-            if diff != nil {
-                print("Received action response")
-                self.stateData = try! diff!.apply(to: self.stateData)
-                self.state = try! JSONDecoder().decode(GameStateFOW.self, from: self.stateData)
-            }
-            self.isLoading = false
-        }
+    func stateDidUpdate(state: GameStateFOW) {
+        self.state = state
     }
 }
