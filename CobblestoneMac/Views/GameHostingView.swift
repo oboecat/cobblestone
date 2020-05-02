@@ -10,12 +10,12 @@ import SwiftUI
 import Auth0
 
 struct GameHostingView: View {
-    var gameId: Int
+    var gameId: String
     var credentialsManager: CredentialsManager
     @ObservedObject var viewModel: ViewModel
     @ObservedObject var game: Game
     
-    init(gameId: Int, credentialsManager: CredentialsManager) {
+    init(gameId: String, credentialsManager: CredentialsManager) {
         self.gameId = gameId
         self.credentialsManager = credentialsManager
         let game = Game(credentialsManager: self.credentialsManager)

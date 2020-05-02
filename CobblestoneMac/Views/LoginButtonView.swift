@@ -15,7 +15,7 @@ struct LoginButtonView: View {
         Button(action: {
             self.appViewModel.login()
         }) {
-            Text("Continue")
+            Text("Sign In")
         }
     }
 }

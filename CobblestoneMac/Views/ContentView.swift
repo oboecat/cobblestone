@@ -11,26 +11,25 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var appViewModel: AppViewModel = AppViewModel()
+    @State var navStack = NavigationStack("/home")
     
-    func damnView() -> AnyView {
+    var body: some View {
         switch appViewModel.userAuthState {
-        case .loading:
-            return AnyView(LoadingView())
         case .notSignedIn:
             return AnyView(LoginView().environmentObject(appViewModel))
         case .signedIn(let user, let manager, let stage):
-            switch stage {
-            case .home:
-                return AnyView(HomeView(user: user).environmentObject(appViewModel))
-            case .inGame(let id):
-                return AnyView(GameHostingView(gameId: id, credentialsManager: manager))
-            }
+            return AnyView(Router(self.navStack) {
+                Route("/home") {
+                    HomeView(user: user)
+                }
+
+                Route("/game/:id") { params in
+                    GameHostingView(gameId: params["id"]!, credentialsManager: manager)
+                }
+            }.environmentObject(appViewModel))
+        default:
+            return AnyView(LoadingView())
         }
-    }
-    
-    var body: some View {
-        damnView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
