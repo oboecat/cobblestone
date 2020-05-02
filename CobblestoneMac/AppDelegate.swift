@@ -41,7 +41,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {
-        print("Resume auth")
         return Auth0.resumeAuth(urls)
     }
 }

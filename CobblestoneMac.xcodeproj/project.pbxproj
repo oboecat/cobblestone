@@ -28,6 +28,11 @@
 		3CE3760AFD095A1AC43A0B6E /* Pods_CobblestoneMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C12FB46807E8649AFBAE7BD4 /* Pods_CobblestoneMac.framework */; };
 		4B29FBE1243BCF9900C5A76E /* GameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B29FBE0243BCF9900C5A76E /* GameService.swift */; };
 		4B29FBE3243D2E3700C5A76E /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B29FBE2243D2E3700C5A76E /* Game.swift */; };
+		4B598DD22459EDCB0023E2AD /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B598DD12459EDCB0023E2AD /* Router.swift */; };
+		4B598DD42459EDD20023E2AD /* NavigationStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B598DD32459EDD20023E2AD /* NavigationStack.swift */; };
+		4B598DD72459EDD80023E2AD /* matchPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B598DD52459EDD80023E2AD /* matchPath.swift */; };
+		4B598DD82459EDD80023E2AD /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B598DD62459EDD80023E2AD /* Link.swift */; };
+		4B598DDA2459EE3E0023E2AD /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B598DD92459EE3E0023E2AD /* Route.swift */; };
 		4B79CDBE23ECAF630092BC33 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B79CDBD23ECAF630092BC33 /* ViewModel.swift */; };
 		4B7B1F0F24130BBC00CD795D /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F0E24130BBC00CD795D /* Board.swift */; };
 		4B7B1F1C241983F100CD795D /* CardParameterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7B1F11241983F100CD795D /* CardParameterView.swift */; };
@@ -88,6 +93,11 @@
 		4561D31AB4B470EFC922C457 /* Pods-CobblestoneMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CobblestoneMac.debug.xcconfig"; path = "Target Support Files/Pods-CobblestoneMac/Pods-CobblestoneMac.debug.xcconfig"; sourceTree = "<group>"; };
 		4B29FBE0243BCF9900C5A76E /* GameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameService.swift; sourceTree = "<group>"; };
 		4B29FBE2243D2E3700C5A76E /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		4B598DD12459EDCB0023E2AD /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		4B598DD32459EDD20023E2AD /* NavigationStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationStack.swift; sourceTree = "<group>"; };
+		4B598DD52459EDD80023E2AD /* matchPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = matchPath.swift; sourceTree = "<group>"; };
+		4B598DD62459EDD80023E2AD /* Link.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		4B598DD92459EE3E0023E2AD /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		4B79CDBD23ECAF630092BC33 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		4B7B1F0E24130BBC00CD795D /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		4B7B1F11241983F100CD795D /* CardParameterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardParameterView.swift; sourceTree = "<group>"; };
@@ -159,6 +169,7 @@
 			children = (
 				266095F12374CA3B00740F52 /* AppDelegate.swift */,
 				266095F32374CA3B00740F52 /* ContentView.swift */,
+				4B598DD02459ED160023E2AD /* Router */,
 				266096082374D5F600740F52 /* Models */,
 				4B7B1F10241983F100CD795D /* Views */,
 				4BA9CB3A23E10C5A000DC05A /* StateMachine */,
@@ -217,6 +228,18 @@
 				4BE0712523DF99DF000C2933 /* sample_games.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		4B598DD02459ED160023E2AD /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				4B598DD92459EE3E0023E2AD /* Route.swift */,
+				4B598DD12459EDCB0023E2AD /* Router.swift */,
+				4B598DD32459EDD20023E2AD /* NavigationStack.swift */,
+				4B598DD62459EDD80023E2AD /* Link.swift */,
+				4B598DD52459EDD80023E2AD /* matchPath.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 		4B7B1F10241983F100CD795D /* Views */ = {
@@ -408,7 +431,9 @@
 				4B7B1F20241983F100CD795D /* MinionPlacementView.swift in Sources */,
 				4B7B1F0F24130BBC00CD795D /* Board.swift in Sources */,
 				265C414523AAC742005E7E59 /* Effect.swift in Sources */,
+				4B598DDA2459EE3E0023E2AD /* Route.swift in Sources */,
 				4B7E1EF124510A420067DB6E /* PlayButtonView.swift in Sources */,
+				4B598DD72459EDD80023E2AD /* matchPath.swift in Sources */,
 				2642FB9823A44455007C7D70 /* Minion.swift in Sources */,
 				4BAD3C1A23DF835F003EE5AD /* Player.swift in Sources */,
 				2660960C2374D60C00740F52 /* Data.swift in Sources */,
@@ -421,16 +446,19 @@
 				4B7B1F1C241983F100CD795D /* CardParameterView.swift in Sources */,
 				4B7B1F282419A1B100CD795D /* HandView.swift in Sources */,
 				4B7E1EE7244A63720067DB6E /* LoadingView.swift in Sources */,
+				4B598DD42459EDD20023E2AD /* NavigationStack.swift in Sources */,
 				4B7E1EFB2456396A0067DB6E /* PlayerColor.swift in Sources */,
 				2612E5102391C18700288C9B /* MinionDropZoneDelegate.swift in Sources */,
 				4B7B1F23241983F100CD795D /* CancelButtonView.swift in Sources */,
 				266095F42374CA3B00740F52 /* ContentView.swift in Sources */,
 				2660960A2374D60600740F52 /* Card.swift in Sources */,
+				4B598DD82459EDD80023E2AD /* Link.swift in Sources */,
 				4B7B1F2A241B001200CD795D /* TurnButtonView.swift in Sources */,
 				4B8C0CD923E11AF5000D8B40 /* UIActionStateMachine.swift in Sources */,
 				267FB5AB23888100009BE2E5 /* GameStateFOW.swift in Sources */,
 				4B29FBE1243BCF9900C5A76E /* GameService.swift in Sources */,
 				2642FB9623A44055007C7D70 /* Hero.swift in Sources */,
+				4B598DD22459EDCB0023E2AD /* Router.swift in Sources */,
 				2612E5122391C62B00288C9B /* DropZoneDelegate.swift in Sources */,
 				4B7E1EEF2450FE840067DB6E /* LogoutButtonView.swift in Sources */,
 				4B79CDBE23ECAF630092BC33 /* ViewModel.swift in Sources */,

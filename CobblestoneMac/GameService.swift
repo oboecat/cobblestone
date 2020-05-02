@@ -8,8 +8,9 @@
 
 import Foundation
 import Alamofire
-import JSONPatch
 import Auth0
+import JSONPatch
+import CryptoKit
 
 class GameService {
     let gameId = 0
@@ -34,6 +35,7 @@ class GameService {
         self.credentialsManager.credentials { err, credentials in
             guard err == nil, credentials != nil else {
                 print("Could not retrieve credentials")
+                self.isLoading = false
                 return
             }
             print(credentials!.accessToken!)
@@ -45,10 +47,12 @@ class GameService {
             ).responseDecodable(of: SyncState.self) { res in
                 guard let syncState = res.value else {
                     print("\(res.error?.errorDescription ?? "Request failed")")
+                    self.isLoading = false
                     return
                 }
                 guard let state = try? JSONDecoder().decode(GameStateFOW.self, from: syncState.state.data(using: .utf8)!) else {
                     print("Invalid state JSON")
+                    self.isLoading = false
                     return
                 }
                 self.syncState = syncState
@@ -67,6 +71,7 @@ class GameService {
         self.credentialsManager.credentials { err, credentials in
             guard err == nil, credentials != nil else {
                 print("Could not retrieve credentials")
+                self.isLoading = false
                 return
             }
             let headers = self.headers(accessToken: credentials!.accessToken!)
@@ -77,16 +82,19 @@ class GameService {
             ).responseDecodable(of: SyncDiff.self) { res in
                 guard let syncDiff = res.value else {
                     print("\(res.error?.errorDescription ?? "Request failed")")
+                    self.isLoading = false
                     return
                 }
                 
                 guard let syncState = self.syncState.patch(diff: syncDiff) else {
                     print("No patch for you!")
+                    self.isLoading = false
                     return
                 }
                 
                 guard let state = try? JSONDecoder().decode(GameStateFOW.self, from: syncState.state.data(using: .utf8)!) else {
                     print("Invalid state JSON")
+                    self.isLoading = false
                     return
                 }
                 
@@ -105,6 +113,7 @@ class GameService {
         self.credentialsManager.credentials { err, credentials in
             guard err == nil, credentials != nil else {
                 print("Could not retrieve credentials")
+                self.isLoading = false
                 return
             }
             print("Sending action \(action)")
@@ -118,16 +127,19 @@ class GameService {
             ).responseDecodable(of: SyncDiff.self) { res in
                 guard let syncDiff = res.value else {
                     print("\(res.error?.errorDescription ?? "Request failed")")
+                    self.isLoading = false
                     return
                 }
                 
                 guard let syncState = self.syncState.patch(diff: syncDiff) else {
                     print("No patch for you!")
+                    self.isLoading = false
                     return
                 }
                 
                 guard let state = try? JSONDecoder().decode(GameStateFOW.self, from: syncState.state.data(using: .utf8)!) else {
                     print("Invalid state JSON")
+                    self.isLoading = false
                     return
                 }
                 
@@ -158,6 +170,8 @@ class GameService {
                 return nil
             }
             
+            let hash = SHA256.hash(data: patchedState.base64EncodedData())
+            
             return SyncState(id: diff.id, state: String(data: patchedState, encoding: .utf8)!)
         }
     }
@@ -165,6 +179,7 @@ class GameService {
     private struct SyncDiff: Codable {
         let id: Int
         let patch: String
+        let hash: String
     }
 }
 

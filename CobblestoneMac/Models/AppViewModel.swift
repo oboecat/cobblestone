@@ -64,17 +64,13 @@ class AppViewModel: ObservableObject {
     }
     
     func login() {
-//        print("Please enter your email")
-//        let email = readLine()!
-//        let email = "lilapusto@gmail.com"
-        
+        print("Starting web auth")
         Auth0
             .webAuth()
             .audience("https://game.example.com")
             .start { result in
                 switch result {
                 case .success(let credentials):
-                    print("Obtained credentials: \(credentials)")
                     self.credentialsManager.store(credentials: credentials)
                     DispatchQueue.main.async {
                         self.userAuthState = .signedIn(
@@ -86,40 +82,6 @@ class AppViewModel: ObservableObject {
                     print("Failed with \(error)")
                 }
         }
-        
-//        Auth0
-//            .authentication()
-//            .startPasswordless(email: email)
-//            .start { result in
-//                switch result {
-//                case .success:
-//                    print("Sent OTP to \(email)!")
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
-        
-//        print("Please enter the OTP to log in")
-//        let code = readLine()!
-//        Auth0
-//            .authentication()
-//            .login(
-//                email: email,
-//                code: code,
-//                audience: "https://game.example.com",
-//                scope: "openid profile offline_access")
-//            .start { result in
-//                switch result {
-//                case .success(let credentials):
-//                    self.credentialsManager.store(credentials: credentials)
-//                    DispatchQueue.main.async {
-//                        self.userAuthState = .signedIn(user: self.userInfo(credentials), manager: self.credentialsManager)
-//                        self.authenticatedView = .home
-//                    }
-//                case .failure(let error):
-//                    print(error)
-//                }
-//            }
     }
     
     func logout() {
