@@ -18,8 +18,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         print("hello")
+        let cancellable = TestSyncDelegate().testCombine()
 //        let appViewModel = AppViewModel()
-        let contentView = ContentView()
+        let contentView = DummyView(cancellable: cancellable)
 //        let game = Game(accessToken: credentials!.accessToken!)
 //            let viewModel = ViewModel(game: game)
 //            print("Creating view")
@@ -33,7 +34,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.window.setFrameAutosaveName("Main Window")
         self.window.contentView = NSHostingView(rootView: contentView)
         self.window.makeKeyAndOrderFront(nil)
-//        test(viewModel: viewModel)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

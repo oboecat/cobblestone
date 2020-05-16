@@ -10,19 +10,19 @@ import Foundation
 import JSONPatch
 import Auth0
 
-class Game: ObservableObject, GameServiceDelegate {
+class Game: ObservableObject, SyncDelegate {
     @Published var state: GameStateFOW = GameStateFOW.sharedSample
 //    @Published var isLoading: Bool = false
-    var service: GameService
+//    var service: GameService
     
-    init(credentialsManager: CredentialsManager) {
-        self.service = GameService(credentialsManager: credentialsManager)
-        service.delegate = self
-    }
+//    init(credentialsManager: CredentialsManager) {
+//        self.service = GameService(credentialsManager: credentialsManager)
+//        service.delegate = self
+//    }
     
     func nextTurn() {
         let action = PlayerAction.endTurn.toAction()
-        service.sendAction(action)
+//        service.sendAction(action)
     }
     
     func playMinion(_ card: Card, position: Int?) {
@@ -47,7 +47,7 @@ class Game: ObservableObject, GameServiceDelegate {
         }
         
         let action = PlayerAction.playMinion(minionCard: card, position: position ?? 0).toAction()
-        service.sendAction(action)
+//        service.sendAction(action)
     }
     
     func tryCombat(_ attacker: MinionInPlay, attacking defender: MinionInPlay) {
@@ -80,10 +80,10 @@ class Game: ObservableObject, GameServiceDelegate {
         }
         
         let action = PlayerAction.combat(attacker: attacker, target: defender).toAction()
-        service.sendAction(action)
+//        service.sendAction(action)
     }
     
-    func stateDidUpdate(state: GameStateFOW) {
-        self.state = state
+    func stateDidUpdate(state: Decodable) {
+        self.state = state as! GameStateFOW
     }
 }

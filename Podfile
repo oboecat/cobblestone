@@ -6,9 +6,10 @@ target 'CobblestoneMac' do
   use_frameworks!
   
   # Pods for CobblestoneMac
-  pod 'SwiftState', '~> 6.0'
+  pod 'SwiftState'
   pod 'SDWebImageSwiftUI'
-  pod 'Auth0', :git => 'https://github.com/auth0/Auth0.swift.git', :branch => 'macos-web-auth/implementation'
-  pod 'Alamofire', '~> 5.0'
+  pod 'Auth0'
+  pod 'Alamofire'
   pod 'RMJSONPatch', :git => 'https://github.com/raymccrae/swift-jsonpatch.git'
+  pod 'PromisesSwift'
 end

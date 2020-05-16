@@ -18,12 +18,10 @@ struct GameHostingView: View {
     init(gameId: String, credentialsManager: CredentialsManager) {
         self.gameId = gameId
         self.credentialsManager = credentialsManager
-        let game = Game(credentialsManager: self.credentialsManager)
+        let game = Game()
         self.game = game
         self.viewModel = ViewModel(game: game)
     }
-    
-    
     
     var body: some View {
         GameView()
